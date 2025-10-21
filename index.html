@@ -8,6 +8,7 @@
 </head>
 <body>
 
+<!-- Loader -->
 <div id="loader">
   <div class="loader-content">
     <div class="loader-emoji">⚡</div>
@@ -16,25 +17,29 @@
   </div>
 </div>
 
+<!-- Particles Background -->
 <canvas id="particles"></canvas>
+
+<!-- Dark/Light Mode Toggle -->
 <button class="toggle-mode" onclick="toggleMode()">🌙 Dark Mode</button>
 
 <main class="container">
-<h1>💻 CyberX ⚡</h1>
-<p class="lead">Click Contact to choose Email or WhatsApp</p>
+  <h1>💻 CyberX ⚡</h1>
+  <p class="lead">Click Contact to choose Email or WhatsApp</p>
 
-<div class="top-buttons">
-  <button class="btn" onclick="showModal()"><span>📩</span> Contact</button>
-  <button id="startBtn" class="btn"><span>🚀</span> Start Experience</button>
-  <button id="musicToggle" class="btn" style="display:none;"><span>🎵</span> Play Music</button>
-</div>
+  <!-- Buttons -->
+  <div class="top-buttons">
+    <button class="btn" onclick="showModal()"><span>📩</span> Contact</button>
+    <button id="startBtn" class="btn"><span>🚀</span> Start Experience</button>
+  </div>
 
-<!-- Music -->
-<audio id="bgMusic" loop>
-  <source src="https://social-amaranth-xt8bygjkft.edgeone.app/Btmanna%20Ansak.mp3" type="audio/mpeg">
-</audio>
+  <!-- Audio -->
+  <audio id="bgMusic" loop>
+    <source src="https://social-amaranth-xt8bygjkft.edgeone.app/Btmanna%20Ansak.mp3" type="audio/mpeg">
+  </audio>
+</main>
 
-<!-- Modal -->
+<!-- Contact Modal -->
 <div id="contactModal" class="modal-backdrop">
   <div class="modal">
     <h3>Contact Me</h3>
