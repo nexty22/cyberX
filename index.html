@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberX — Contact Modal</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-content">
+    <div class="loader-emoji">⚡</div>
+    <div class="loader-text">CyberX Loading...</div>
+    <div id="progress">0%</div>
+  </div>
+</div>
+
+<canvas id="particles"></canvas>
+<button class="toggle-mode" onclick="toggleMode()">🌙 Dark Mode</button>
+
+<main class="container">
+<h1>💻 CyberX ⚡</h1>
+<p class="lead">Click Contact to choose Email or WhatsApp</p>
+
+<div id="startExperienceWrapper">
+  <button id="startBtn" class="start-btn">🚀 Start Experience</button>
+</div>
+
+<div class="top-buttons">
+  <button class="btn" onclick="showModal()"><span>📩</span> Contact</button>
+</div>
+
+<!-- Music Control -->
+<button id="musicToggle" class="start-btn" style="display:none;">▶️ Play Music</button>
+<audio id="bgMusic" loop>
+  <source src="https://social-amaranth-xt8bygjkft.edgeone.app/Btmanna%20Ansak.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Modal -->
+<div id="contactModal" class="modal-backdrop">
+  <div class="modal">
+    <h3>Contact Me</h3>
+    <button class="modal-btn" onclick="window.location='mailto:imsyber4@gmail.com'"><span>📧</span> Email Me</button>
+    <button class="modal-btn" onclick="window.open('https://wa.me/923192084504?text=Hi,%20I%20want%20to%20discuss%20a%20website.')"><span>💬</span> WhatsApp</button>
+    <button class="modal-btn" style="background:transparent;border:1px solid #fff;" onclick="closeModal()">❌ Close</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
