@@ -4,7 +4,7 @@ const loader = document.getElementById('loader');
 const progressText = document.getElementById('progress');
 
 const loaderInterval = setInterval(() => {
-  progress += 2; // har 100ms me 2% increment
+  progress += 2;
   if (progress >= 100) {
     progress = 100;
     progressText.innerText = '100%';
