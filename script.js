@@ -1,55 +1,41 @@
-// ✅ Loader Fix — ensures DOM + JS fully loaded before progress starts
 window.addEventListener("DOMContentLoaded", () => {
   let progress = 0;
   const loader = document.getElementById("loader");
   const progressText = document.getElementById("progress");
 
-  if (!loader || !progressText) return;
-
   const loaderInterval = setInterval(() => {
     progress += 2;
     progressText.innerText = progress + "%";
-
     if (progress >= 100) {
       clearInterval(loaderInterval);
       progressText.innerText = "100%";
-      loader.style.transition = "opacity 0.8s, transform 0.8s";
       loader.style.opacity = "0";
       loader.style.transform = "scale(1.05)";
-      setTimeout(() => {
-        loader.style.display = "none";
-      }, 800);
+      setTimeout(() => (loader.style.display = "none"), 800);
     }
-  }, 100);
+  }, 80);
 });
 
-// 🌙 Dark/Light Mode Toggle
+// Dark/Light Mode
 function toggleMode() {
   document.body.classList.toggle("light-mode");
-  localStorage.setItem("cyberx-mode", document.body.classList.contains("light-mode") ? "light" : "dark");
 }
 
-// ✅ Apply saved mode
-window.addEventListener("load", () => {
-  if (localStorage.getItem("cyberx-mode") === "light") {
-    document.body.classList.add("light-mode");
-  }
-});
-
-// 💬 Contact Modal
+// Contact Modal
 const modal = document.getElementById("contactModal");
-function showModal() {
-  modal.classList.add("show");
-}
-function closeModal() {
-  modal.classList.remove("show");
-}
+function showModal() { modal.classList.add("show"); }
+function closeModal() { modal.classList.remove("show"); }
 
-// 🌌 Particles Background
+// Tools Modal
+const toolsModal = document.getElementById("toolsModal");
+function toggleTools() { toolsModal.classList.add("show"); }
+function closeTools() { toolsModal.classList.remove("show"); }
+
+// Particles
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
 let particles = [];
 for (let i = 0; i < 60; i++) {
@@ -57,8 +43,8 @@ for (let i = 0; i < 60; i++) {
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
     size: Math.random() * 2 + 1,
-    speedX: (Math.random() - 0.5) * 0.5,
-    speedY: (Math.random() - 0.5) * 0.5,
+    speedX: (Math.random() - 0.5) * 0.6,
+    speedY: (Math.random() - 0.5) * 0.6,
   });
 }
 
@@ -78,10 +64,9 @@ function animateParticles() {
 }
 animateParticles();
 
-// 🎵 Start Experience Music
+// Music
 const startBtn = document.getElementById("startBtn");
 const bgMusic = document.getElementById("bgMusic");
-
 startBtn.addEventListener("click", () => {
   if (bgMusic.paused) {
     bgMusic.play();
@@ -92,13 +77,13 @@ startBtn.addEventListener("click", () => {
   }
 });
 
-// 🧩 Tools Modal (multi-tool system)
-let tools = {
+// Tools Logic
+const tools = {
   password: () => {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
     let pass = "";
     for (let i = 0; i < 12; i++) pass += chars[Math.floor(Math.random() * chars.length)];
-    alert("🔑 Your Secure Password:\n" + pass);
+    alert("🔑 Generated Password:\n" + pass);
   },
   encrypt: () => {
     const text = prompt("Enter text to encrypt:");
@@ -109,7 +94,7 @@ let tools = {
     if (text) alert("🔓 Decrypted:\n" + atob(text));
   },
   qr: () => {
-    const text = prompt("Enter text/URL for QR Code:");
+    const text = prompt("Enter text or URL:");
     if (text) window.open(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}`);
   },
   bmi: () => {
@@ -124,28 +109,14 @@ let tools = {
   ip: () => {
     fetch("https://api.ipify.org?format=json")
       .then((res) => res.json())
-      .then((d) => alert("🌐 Your IP Address: " + d.ip))
+      .then((data) => alert("🌐 Your IP Address: " + data.ip))
       .catch(() => alert("❌ Failed to fetch IP"));
   },
 };
 
-// 🧠 Optional: Tool launcher (add to UI later)
-window.launchTool = (toolName) => {
+function launchTool(toolName) {
   if (tools[toolName]) tools[toolName]();
-  else alert("⚠️ Tool not found: " + toolName);
-};
-
-// 🖥️ Responsive Canvas Resize
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});        <button onclick="closeTool()">❌ Close</button>
-      `;
-      break;
-
-    case 'encrypt':
-      html = `
-        <h3>🔐 Text Encrypt / Decrypt (Base64)</h3>
+}        <h3>🔐 Text Encrypt / Decrypt (Base64)</h3>
         <textarea id="cryptoText" placeholder="Enter text..." rows="4"></textarea>
         <div style="margin-top:8px;">
           <button onclick="encryptText()">Encrypt</button>
