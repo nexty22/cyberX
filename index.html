@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CyberX — Contact Modal</title>
+<title>CyberX — Future Web System</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,13 +27,11 @@
   <h1>💻 CyberX ⚡</h1>
   <p class="lead">Click Contact to choose Email or WhatsApp</p>
 
-  <!-- Buttons -->
   <div class="top-buttons">
     <button class="btn" onclick="showModal()"><span>📩</span> Contact</button>
     <button id="startBtn" class="btn"><span>🚀</span> Start Experience</button>
   </div>
 
-  <!-- Audio hidden, controlled via Start Experience button -->
   <audio id="bgMusic" loop>
     <source src="music/music_anna_ansak.mp3" type="audio/mpeg">
   </audio>
@@ -47,6 +45,14 @@
     <button class="modal-btn" onclick="window.open('https://wa.me/923192084504?text=Hi,%20I%20want%20to%20discuss%20a%20website.')"><span>💬</span> WhatsApp</button>
     <button class="modal-btn" style="background:transparent;border:1px solid #fff;" onclick="closeModal()">❌ Close</button>
   </div>
+</div>
+
+<!-- CyberX HUD Panel -->
+<div id="cyberx-hud">
+  <div class="hud-item"><span class="drag-handle">☰</span> Tools Loaded: <b id="toolCount">5</b></div>
+  <div class="hud-item"><span>⚙️</span> Active Tool: <b id="activeTool">None</b></div>
+  <div class="hud-item"><span>🌙</span> Mode: <b id="modeStatus">Dark</b></div>
+  <small class="hint">Drag me • Tap & hold on mobile</small>
 </div>
 
 <!-- Footer -->
