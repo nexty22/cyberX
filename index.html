@@ -1,72 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CyberX — Tools Hub</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberX — Next Gen Tools</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Loader -->
-<div id="loader">
-  <div class="loader-content">
-    <div class="loader-emoji">⚡</div>
-    <div class="loader-text">CyberX Loading...</div>
-    <div id="progress">0%</div>
-  </div>
-</div>
-
-<!-- Particles Background -->
-<canvas id="particles"></canvas>
-
-<!-- Dark/Light Mode Toggle -->
-<button class="toggle-mode" onclick="toggleMode()">🌙 Dark Mode</button>
-
-<main class="container">
-  <h1>💻 CyberX ⚡</h1>
-  <p class="lead">Select an option below</p>
-
-  <!-- Buttons -->
-  <div class="top-buttons">
-    <button class="btn" onclick="showModal()"><span>📩</span> Contact</button>
-    <button class="btn" onclick="toggleTools()"><span>🧰</span> Tools</button>
-    <button id="startBtn" class="btn"><span>🚀</span> Start Experience</button>
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-content">
+      <div class="loader-emoji">⚡</div>
+      <div class="loader-text">CyberX Loading...</div>
+      <div id="progress">0%</div>
+    </div>
   </div>
 
-  <!-- Audio -->
-  <audio id="bgMusic" loop>
-    <source src="music/music_anna_ansak.mp3" type="audio/mpeg">
-  </audio>
-</main>
+  <!-- Particles Background -->
+  <canvas id="particles"></canvas>
 
-<!-- Contact Modal -->
-<div id="contactModal" class="modal-backdrop">
-  <div class="modal">
-    <h3>Contact Me</h3>
-    <button class="modal-btn" onclick="window.location='mailto:imsyber4@gmail.com'"><span>📧</span> Email Me</button>
-    <button class="modal-btn" onclick="window.open('https://wa.me/923192084504?text=Hi,%20I%20want%20to%20discuss%20a%20website.')"><span>💬</span> WhatsApp</button>
-    <button class="modal-btn close" onclick="closeModal()">❌ Close</button>
+  <!-- Dark Mode Toggle -->
+  <button class="toggle-mode" onclick="toggleMode()">🌙</button>
+
+  <main class="container">
+    <h1>💻 CyberX ⚡</h1>
+    <p class="lead">Click Contact to choose Email or WhatsApp</p>
+
+    <div class="top-buttons">
+      <button class="btn" onclick="showModal()"><span>📩</span> Contact</button>
+      <button id="startBtn" class="btn"><span>🚀</span> Start Experience</button>
+    </div>
+
+    <audio id="bgMusic" loop>
+      <source src="music/music_anna_ansak.mp3" type="audio/mpeg">
+    </audio>
+  </main>
+
+  <!-- Tools Section -->
+  <section id="tools-section">
+    <h2>🧠 CyberX Tools Center</h2>
+    <div class="tools-grid">
+
+      <!-- Tool 1: IP Finder -->
+      <div class="tool-card">
+        <h3>🌐 IP Finder</h3>
+        <button onclick="getIP()">Get My IP</button>
+        <p id="ipResult">Your IP will appear here.</p>
+      </div>
+
+      <!-- Tool 2: Password Generator -->
+      <div class="tool-card">
+        <h3>🔐 Password Generator</h3>
+        <input type="number" id="passLength" placeholder="Length (e.g. 12)">
+        <button onclick="generatePassword()">Generate</button>
+        <p id="passResult">Your password will appear here.</p>
+      </div>
+
+      <!-- Tool 3: QR Code Generator -->
+      <div class="tool-card">
+        <h3>📱 QR Code Generator</h3>
+        <input type="text" id="qrText" placeholder="Enter text or URL">
+        <button onclick="generateQR()">Generate QR</button>
+        <div id="qrResult"></div>
+      </div>
+
+      <!-- Tool 4: Notes -->
+      <div class="tool-card">
+        <h3>🗒️ Quick Notes</h3>
+        <textarea id="noteInput" placeholder="Write your note..."></textarea>
+        <button onclick="saveNote()">Save</button>
+        <p id="noteSaved"></p>
+      </div>
+
+      <!-- Tool 5: Calculator -->
+      <div class="tool-card">
+        <h3>🧮 Calculator</h3>
+        <input type="text" id="calcInput" placeholder="e.g. 12+7*2">
+        <button onclick="calculate()">=</button>
+        <p id="calcResult"></p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Contact Modal -->
+  <div id="contactModal" class="modal-backdrop">
+    <div class="modal">
+      <h3>Contact Me</h3>
+      <button class="modal-btn" onclick="window.location='mailto:imsyber4@gmail.com'"><span>📧</span> Email Me</button>
+      <button class="modal-btn" onclick="window.open('https://wa.me/923192084504?text=Hi,%20I%20want%20to%20discuss%20a%20website.')"><span>💬</span> WhatsApp</button>
+      <button class="modal-btn close" onclick="closeModal()">❌ Close</button>
+    </div>
   </div>
-</div>
 
-<!-- Tools Modal -->
-<div id="toolsModal" class="modal-backdrop">
-  <div class="modal">
-    <h3>CyberX Tools 🧩</h3>
-    <button class="modal-btn" onclick="launchTool('password')">🔑 Password Generator</button>
-    <button class="modal-btn" onclick="launchTool('encrypt')">🔐 Encrypt Text</button>
-    <button class="modal-btn" onclick="launchTool('decrypt')">🔓 Decrypt Text</button>
-    <button class="modal-btn" onclick="launchTool('qr')">📱 QR Generator</button>
-    <button class="modal-btn" onclick="launchTool('bmi')">🧮 BMI Calculator</button>
-    <button class="modal-btn" onclick="launchTool('ip')">🌐 IP Finder</button>
-    <button class="modal-btn close" onclick="closeTools()">❌ Close</button>
-  </div>
-</div>
+  <div class="footer-note">✨ CyberX Tools — Powered by You ⚡</div>
 
-<!-- Footer -->
-<div class="footer-note">✨ CyberX v2.0 — All systems operational ⚡</div>
-
-<script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
