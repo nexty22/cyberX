@@ -1,151 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CyberX — Tools Hub</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>CyberX — Nexty</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <!-- Loader -->
   <div id="loader">
-    <div class="loader-content">
-      <div class="loader-emoji">⚡</div>
-      <div class="loader-text">CyberX Loading...</div>
-      <div id="progress">0%</div>
-    </div>
+    <div class="loader-emoji">⚡</div>
+    <div class="loader-text">CyberX Loading...</div>
+    <div id="progress">0%</div>
   </div>
 
   <!-- Particles -->
   <canvas id="particles"></canvas>
 
-  <!-- Dark toggle (floating) -->
-  <button class="toggle-mode" id="toggleModeBtn" title="Toggle Dark/Light">🌙</button>
+  <!-- Toggle -->
+  <button id="modeToggle" class="toggle-mode" title="Toggle dark/light">🌙</button>
 
-  <!-- Main centered container -->
-  <main class="container">
-    <header class="hero">
-      <h1>💻 CyberX ⚡</h1>
-      <p class="lead">Click Contact to choose Email or WhatsApp</p>
+  <main class="wrap">
+    <header class="top">
+      <h1 class="brand">💻 CyberX ⚡</h1>
+      <p class="lead">Next-generation interactive tools crafted for creativity.</p>
+      <div class="controls">
+        <button id="contactBtn" class="btn">📩 Contact</button>
+        <button id="startBtn" class="btn">🚀 Start Experience</button>
+      </div>
+      <div class="tagline">Nexty — Where Innovation Meets Imagination.</div>
     </header>
 
-    <div class="top-buttons">
-      <button class="btn" id="contactBtn">📩 Contact</button>
-      <button class="btn" id="startBtn">🚀 Start Experience</button>
-    </div>
+    <!-- Bottom buttons (appear after start) -->
+    <section class="bottom">
+      <div id="bottomButtons" class="bottom-buttons">
+        <button id="toolsBtn" class="btn">🧰 Tools</button>
+        <button id="soon1" class="btn">🔜 Coming Soon</button>
+        <button id="soon2" class="btn">🔜 Coming Soon</button>
+      </div>
 
-    <!-- Tools list (centered) -->
-    <section id="tools-section">
-      <h2>🧰 Tools Center</h2>
-      <div class="tools-grid">
-        <!-- 20 tools, each opens the tool panel -->
-        <div class="tool-card" data-tool="password">
-          <h3>🔐 Password Generator</h3>
-        </div>
-
-        <div class="tool-card" data-tool="qr">
-          <h3>📱 QR Code Generator</h3>
-        </div>
-
-        <div class="tool-card" data-tool="base64">
-          <h3>🔐 Base64 Encode / Decode</h3>
-        </div>
-
-        <div class="tool-card" data-tool="binary">
-          <h3>💻 Binary ↔ Text</h3>
-        </div>
-
-        <div class="tool-card" data-tool="unit">
-          <h3>⚖️ Unit Converter</h3>
-        </div>
-
-        <div class="tool-card" data-tool="img2b64">
-          <h3>🖼️ Image → Base64</h3>
-        </div>
-
-        <div class="tool-card" data-tool="tts">
-          <h3>🔊 Text → Speech</h3>
-        </div>
-
-        <div class="tool-card" data-tool="stt">
-          <h3>🎤 Speech → Text</h3>
-        </div>
-
-        <div class="tool-card" data-tool="color">
-          <h3>🎨 Color Picker</h3>
-        </div>
-
-        <div class="tool-card" data-tool="rgbhex">
-          <h3>🔁 RGB ↔ HEX</h3>
-        </div>
-
-        <div class="tool-card" data-tool="bmi">
-          <h3>🧮 BMI Calculator</h3>
-        </div>
-
-        <div class="tool-card" data-tool="age">
-          <h3>🎂 Age Calculator</h3>
-        </div>
-
-        <div class="tool-card" data-tool="currency">
-          <h3>💱 Currency Converter</h3>
-        </div>
-
-        <div class="tool-card" data-tool="countdown">
-          <h3>⏳ Countdown Timer</h3>
-        </div>
-
-        <div class="tool-card" data-tool="stopwatch">
-          <h3>⏱️ Stopwatch</h3>
-        </div>
-
-        <div class="tool-card" data-tool="rng">
-          <h3>🎲 Random Number</h3>
-        </div>
-
-        <div class="tool-card" data-tool="notes">
-          <h3>📝 Notes (local)</h3>
-        </div>
-
-        <div class="tool-card" data-tool="todo">
-          <h3>✅ Todo List (local)</h3>
-        </div>
-
-        <div class="tool-card" data-tool="ip">
-          <h3>🌐 IP Detector</h3>
-        </div>
-
-        <div class="tool-card" data-tool="clock">
-          <h3>🕒 Live Clock</h3>
+      <!-- modal box for tools (centered window) -->
+      <div id="toolModal" class="modal-backdrop" aria-hidden="true">
+        <div class="modal-box" role="dialog" aria-modal="true">
+          <header class="modal-header">
+            <h2 id="modalTitle">Tool</h2>
+            <button id="closeModal" class="modal-close">✖</button>
+          </header>
+          <div id="modalBody" class="modal-body">
+            <!-- tool UI injected here -->
+          </div>
         </div>
       </div>
+
+      <!-- Tools grid (hidden unless Tools button pressed) -->
+      <section id="toolsPanel" class="tools-panel" aria-hidden="true">
+        <h3>Toolbox</h3>
+        <div id="toolsGrid" class="tools-grid">
+          <!-- 25 tool cards: data-tool attribute maps to tool id in script -->
+        </div>
+      </section>
     </section>
   </main>
 
-  <!-- Contact modal -->
-  <div id="contactModal" class="modal-backdrop">
-    <div class="modal">
-      <h3>Contact Me</h3>
-      <button class="modal-btn" onclick="window.location='mailto:imsyber4@gmail.com'">📧 Email Me</button>
-      <button class="modal-btn" onclick="window.open('https://wa.me/923192084504')">💬 WhatsApp</button>
-      <button class="modal-btn close" id="closeContact">❌ Close</button>
+  <!-- Contact modal simple -->
+  <div id="contactModal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-box">
+      <header class="modal-header">
+        <h2>Contact</h2>
+        <button class="modal-close" onclick="closeContact()">✖</button>
+      </header>
+      <div class="modal-body">
+        <button class="btn" onclick="window.location='mailto:imsyber4@gmail.com'">📧 Email</button>
+        <button class="btn" onclick="window.open('https://wa.me/923192084504?text=Hi%20Nexty')">💬 WhatsApp</button>
+      </div>
     </div>
   </div>
 
-  <!-- Tool panel (single panel used for all tools) -->
-  <div id="toolPanel" class="modal-backdrop">
-    <div class="modal" id="toolPanelInner">
-      <button id="closeToolPanel" class="modal-btn close">Close Tool</button>
-      <h3 id="toolTitle">Tool</h3>
-      <div id="toolUi"></div>
-    </div>
-  </div>
+  <!-- Footer -->
+  <footer class="footer">✨ Built by Nexty — The Future Starts Here ⚡</footer>
 
-  <div class="footer-note">✨ More features coming soon... Stay tuned! ⚡</div>
-
-  <audio id="bgMusic" loop>
-    <source src="music/music_anna_ansak.mp3" type="audio/mpeg" />
+  <!-- audio -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music/music_anna_ansak.mp3" type="audio/mpeg">
   </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>  </audio>
 
   <script src="script.js"></script>
 </body>
