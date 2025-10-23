@@ -1,151 +1,145 @@
-// ================= Loader =================
-let progress = 0;
-const loader = document.getElementById('loader');
-const progressText = document.getElementById('progress');
+// ✅ Loader Fix — ensures DOM + JS fully loaded before progress starts
+window.addEventListener("DOMContentLoaded", () => {
+  let progress = 0;
+  const loader = document.getElementById("loader");
+  const progressText = document.getElementById("progress");
 
-const loaderInterval = setInterval(() => {
-  try {
+  if (!loader || !progressText) return;
+
+  const loaderInterval = setInterval(() => {
     progress += 2;
+    progressText.innerText = progress + "%";
+
     if (progress >= 100) {
-      progress = 100;
-      if (progressText) progressText.innerText = '100%';
       clearInterval(loaderInterval);
-      if (loader) {
-        loader.style.transition = 'opacity 0.8s, transform 0.8s';
-        loader.style.opacity = '0';
-        loader.style.transform = 'scale(1.05)';
-        setTimeout(() => { if (loader) loader.style.display = 'none'; }, 800);
-      }
-    } else {
-      if (progressText) progressText.innerText = progress + '%';
+      progressText.innerText = "100%";
+      loader.style.transition = "opacity 0.8s, transform 0.8s";
+      loader.style.opacity = "0";
+      loader.style.transform = "scale(1.05)";
+      setTimeout(() => {
+        loader.style.display = "none";
+      }, 800);
     }
-  } catch (e) {
-    // If any unexpected error occurs, stop interval to avoid infinite loop
-    console.error('Loader error:', e);
-    clearInterval(loaderInterval);
-  }
-}, 100);
+  }, 100);
+});
 
-
-// =============== Dark/Light Mode ===============
+// 🌙 Dark/Light Mode Toggle
 function toggleMode() {
-  document.body.classList.toggle('light-mode');
-  const modeStatus = document.getElementById('modeStatus');
-  if (modeStatus) modeStatus.innerText = document.body.classList.contains('light-mode') ? 'Light' : 'Dark';
+  document.body.classList.toggle("light-mode");
+  localStorage.setItem("cyberx-mode", document.body.classList.contains("light-mode") ? "light" : "dark");
 }
 
-
-// =============== Contact Modal ===============
-const contactModal = document.getElementById('contactModal');
-function showModal(){ if(contactModal) contactModal.classList.add('show'); }
-function closeModal(){ if(contactModal) contactModal.classList.remove('show'); }
-
-
-// =============== Particle Background ===============
-(function initParticles() {
-  const canvas = document.getElementById('particles');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+// ✅ Apply saved mode
+window.addEventListener("load", () => {
+  if (localStorage.getItem("cyberx-mode") === "light") {
+    document.body.classList.add("light-mode");
   }
-  resize();
-  window.addEventListener('resize', resize);
+});
 
-  let particles = [];
-  const COUNT = 60;
-  function createParticles() {
-    particles = [];
-    for (let i = 0; i < COUNT; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 2 + 1,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5
-      });
-    }
-  }
-  createParticles();
+// 💬 Contact Modal
+const modal = document.getElementById("contactModal");
+function showModal() {
+  modal.classList.add("show");
+}
+function closeModal() {
+  modal.classList.remove("show");
+}
 
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let p of particles) {
-      p.x += p.speedX;
-      p.y += p.speedY;
-      if (p.x > canvas.width || p.x < 0) p.speedX *= -1;
-      if (p.y > canvas.height || p.y < 0) p.speedY *= -1;
-      ctx.fillStyle = 'rgba(123,47,247,0.7)';
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    requestAnimationFrame(animate);
-  }
-  animate();
-})();
+// 🌌 Particles Background
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-
-// =============== Start Music ===============
-(function initMusic() {
-  const startBtn = document.getElementById('startBtn');
-  const bgMusic = document.getElementById('bgMusic');
-  if (!startBtn || !bgMusic) return;
-  startBtn.addEventListener('click', () => {
-    try {
-      if (bgMusic.paused) {
-        bgMusic.play();
-        startBtn.innerHTML = '⏸ Pause Music';
-      } else {
-        bgMusic.pause();
-        startBtn.innerHTML = '🚀 Start Experience';
-      }
-    } catch (e) {
-      console.warn('Music play blocked or error:', e);
-    }
+let particles = [];
+for (let i = 0; i < 60; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: Math.random() * 2 + 1,
+    speedX: (Math.random() - 0.5) * 0.5,
+    speedY: (Math.random() - 0.5) * 0.5,
   });
-})();
-
-
-// =============== Tools Modal / UI ===============
-const toolModal = document.getElementById('toolModal') || createToolModalFallback();
-const toolContent = document.getElementById('toolContent') || (toolModal ? toolModal.querySelector('#toolContent') : null);
-
-function createToolModalFallback() {
-  // If HTML wasn't added, create a minimal modal so code won't break.
-  const wrapper = document.createElement('div');
-  wrapper.id = 'toolModal';
-  wrapper.className = 'modal-backdrop';
-  wrapper.innerHTML = `<div class="modal" id="toolContent"></div>`;
-  document.body.appendChild(wrapper);
-  return wrapper;
 }
 
-function openTool(type) {
-  const names = {
-    password: "Password Generator",
-    encrypt: "Encrypt / Decrypt",
-    qr: "QR Code Generator",
-    bmi: "BMI Calculator",
-    ip: "IP Finder"
-  };
-  const title = names[type] || 'Tool';
-  if (document.getElementById('activeTool')) document.getElementById('activeTool').innerText = title;
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let p of particles) {
+    p.x += p.speedX;
+    p.y += p.speedY;
+    if (p.x > canvas.width || p.x < 0) p.speedX *= -1;
+    if (p.y > canvas.height || p.y < 0) p.speedY *= -1;
+    ctx.fillStyle = "rgba(123,47,247,0.7)";
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
 
-  let html = '';
-  switch (type) {
-    case 'password':
-      html = `
-        <h3>🔑 Password Generator</h3>
-        <input id="pwLength" type="number" placeholder="Length (8)" min="4" max="64" value="12" />
-        <div style="margin-top:8px;">
-          <button onclick="generatePassword()">Generate</button>
-          <button onclick="copyText('pwResult')">Copy</button>
-        </div>
-        <p id="pwResult" style="margin-top:10px;word-break:break-all;"></p>
-        <button onclick="closeTool()">❌ Close</button>
+// 🎵 Start Experience Music
+const startBtn = document.getElementById("startBtn");
+const bgMusic = document.getElementById("bgMusic");
+
+startBtn.addEventListener("click", () => {
+  if (bgMusic.paused) {
+    bgMusic.play();
+    startBtn.innerHTML = "⏸ Pause Music";
+  } else {
+    bgMusic.pause();
+    startBtn.innerHTML = "🚀 Start Experience";
+  }
+});
+
+// 🧩 Tools Modal (multi-tool system)
+let tools = {
+  password: () => {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+    let pass = "";
+    for (let i = 0; i < 12; i++) pass += chars[Math.floor(Math.random() * chars.length)];
+    alert("🔑 Your Secure Password:\n" + pass);
+  },
+  encrypt: () => {
+    const text = prompt("Enter text to encrypt:");
+    if (text) alert("🔐 Encrypted:\n" + btoa(text));
+  },
+  decrypt: () => {
+    const text = prompt("Enter Base64 to decrypt:");
+    if (text) alert("🔓 Decrypted:\n" + atob(text));
+  },
+  qr: () => {
+    const text = prompt("Enter text/URL for QR Code:");
+    if (text) window.open(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}`);
+  },
+  bmi: () => {
+    const w = parseFloat(prompt("Enter weight (kg):"));
+    const h = parseFloat(prompt("Enter height (m):"));
+    if (w && h) {
+      const bmi = (w / (h * h)).toFixed(2);
+      let status = bmi < 18.5 ? "Underweight" : bmi < 25 ? "Normal" : bmi < 30 ? "Overweight" : "Obese";
+      alert(`🧮 Your BMI: ${bmi}\nStatus: ${status}`);
+    }
+  },
+  ip: () => {
+    fetch("https://api.ipify.org?format=json")
+      .then((res) => res.json())
+      .then((d) => alert("🌐 Your IP Address: " + d.ip))
+      .catch(() => alert("❌ Failed to fetch IP"));
+  },
+};
+
+// 🧠 Optional: Tool launcher (add to UI later)
+window.launchTool = (toolName) => {
+  if (tools[toolName]) tools[toolName]();
+  else alert("⚠️ Tool not found: " + toolName);
+};
+
+// 🖥️ Responsive Canvas Resize
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});        <button onclick="closeTool()">❌ Close</button>
       `;
       break;
 
