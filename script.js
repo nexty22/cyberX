@@ -1,72 +1,55 @@
-window.addEventListener("DOMContentLoaded", () => {
-  let progress = 0;
-  const loader = document.getElementById("loader");
-  const progressText = document.getElementById("progress");
+// Loader
+let progress = 0;
+const loader = document.getElementById('loader');
+const progressText = document.getElementById('progress');
+const loaderInterval = setInterval(() => {
+  progress += 2;
+  progressText.innerText = progress + "%";
+  if (progress >= 100) {
+    clearInterval(loaderInterval);
+    loader.style.opacity = "0";
+    setTimeout(() => loader.style.display = "none", 600);
+  }
+}, 100);
 
-  const loaderInterval = setInterval(() => {
-    progress += 2;
-    progressText.innerText = progress + "%";
-    if (progress >= 100) {
-      clearInterval(loaderInterval);
-      progressText.innerText = "100%";
-      loader.style.opacity = "0";
-      loader.style.transform = "scale(1.05)";
-      setTimeout(() => (loader.style.display = "none"), 800);
-    }
-  }, 80);
-});
-
-// Dark/Light Mode
+// Dark mode
 function toggleMode() {
   document.body.classList.toggle("light-mode");
 }
 
 // Contact Modal
-const modal = document.getElementById("contactModal");
-function showModal() { modal.classList.add("show"); }
-function closeModal() { modal.classList.remove("show"); }
+function showModal() {
+  document.getElementById("contactModal").classList.add("show");
+}
+function closeModal() {
+  document.getElementById("contactModal").classList.remove("show");
+}
 
-// Tools Modal
-const toolsModal = document.getElementById("toolsModal");
-function toggleTools() { toolsModal.classList.add("show"); }
-function closeTools() { toolsModal.classList.remove("show"); }
-
-// Particles
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+// Background particles
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-
 let particles = [];
 for (let i = 0; i < 60; i++) {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    size: Math.random() * 2 + 1,
-    speedX: (Math.random() - 0.5) * 0.6,
-    speedY: (Math.random() - 0.5) * 0.6,
-  });
+  particles.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, size: Math.random()*2+1, speedX: (Math.random()-0.5)*0.5, speedY: (Math.random()-0.5)*0.5 });
 }
-
-function animateParticles() {
+function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (let p of particles) {
-    p.x += p.speedX;
-    p.y += p.speedY;
-    if (p.x > canvas.width || p.x < 0) p.speedX *= -1;
-    if (p.y > canvas.height || p.y < 0) p.speedY *= -1;
-    ctx.fillStyle = "rgba(123,47,247,0.7)";
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fill();
+    p.x += p.speedX; p.y += p.speedY;
+    if (p.x>canvas.width||p.x<0) p.speedX*=-1;
+    if (p.y>canvas.height||p.y<0) p.speedY*=-1;
+    ctx.fillStyle='rgba(123,47,247,0.7)';
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill();
   }
-  requestAnimationFrame(animateParticles);
+  requestAnimationFrame(animate);
 }
-animateParticles();
+animate();
 
 // Music
-const startBtn = document.getElementById("startBtn");
 const bgMusic = document.getElementById("bgMusic");
+const startBtn = document.getElementById("startBtn");
 startBtn.addEventListener("click", () => {
   if (bgMusic.paused) {
     bgMusic.play();
@@ -77,38 +60,52 @@ startBtn.addEventListener("click", () => {
   }
 });
 
-// Tools Logic
-const tools = {
-  password: () => {
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
-    let pass = "";
-    for (let i = 0; i < 12; i++) pass += chars[Math.floor(Math.random() * chars.length)];
-    alert("🔑 Generated Password:\n" + pass);
-  },
-  encrypt: () => {
-    const text = prompt("Enter text to encrypt:");
-    if (text) alert("🔐 Encrypted:\n" + btoa(text));
-  },
-  decrypt: () => {
-    const text = prompt("Enter Base64 to decrypt:");
-    if (text) alert("🔓 Decrypted:\n" + atob(text));
-  },
-  qr: () => {
-    const text = prompt("Enter text or URL:");
-    if (text) window.open(`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(text)}`);
-  },
-  bmi: () => {
-    const w = parseFloat(prompt("Enter weight (kg):"));
-    const h = parseFloat(prompt("Enter height (m):"));
-    if (w && h) {
-      const bmi = (w / (h * h)).toFixed(2);
-      let status = bmi < 18.5 ? "Underweight" : bmi < 25 ? "Normal" : bmi < 30 ? "Overweight" : "Obese";
-      alert(`🧮 Your BMI: ${bmi}\nStatus: ${status}`);
-    }
-  },
-  ip: () => {
-    fetch("https://api.ipify.org?format=json")
-      .then((res) => res.json())
+// 🧰 Tools Section
+// 1. IP Finder
+async function getIP() {
+  try {
+    const res = await fetch("https://api.ipify.org?format=json");
+    const data = await res.json();
+    document.getElementById("ipResult").innerText = "Your IP: " + data.ip;
+  } catch {
+    document.getElementById("ipResult").innerText = "Error fetching IP.";
+  }
+}
+
+// 2. Password Generator
+function generatePassword() {
+  const length = document.getElementById("passLength").value || 12;
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+  let pass = "";
+  for (let i = 0; i < length; i++) pass += chars.charAt(Math.floor(Math.random() * chars.length));
+  document.getElementById("passResult").innerText = pass;
+}
+
+// 3. QR Generator
+function generateQR() {
+  const text = document.getElementById("qrText").value;
+  if (!text) return alert("Enter some text!");
+  const qr = new QRious({ element: document.createElement("canvas"), value: text, size: 150 });
+  document.getElementById("qrResult").innerHTML = "";
+  document.getElementById("qrResult").appendChild(qr.element);
+}
+
+// 4. Notes
+function saveNote() {
+  const note = document.getElementById("noteInput").value;
+  localStorage.setItem("cyberx_note", note);
+  document.getElementById("noteSaved").innerText = "Note saved locally ✅";
+}
+
+// 5. Calculator
+function calculate() {
+  try {
+    const val = eval(document.getElementById("calcInput").value);
+    document.getElementById("calcResult").innerText = "= " + val;
+  } catch {
+    document.getElementById("calcResult").innerText = "Invalid Expression";
+  }
+}      .then((res) => res.json())
       .then((data) => alert("🌐 Your IP Address: " + data.ip))
       .catch(() => alert("❌ Failed to fetch IP"));
   },
