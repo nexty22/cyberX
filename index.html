@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CyberX ⚡</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CyberX — Tools Hub</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -16,62 +16,132 @@
     </div>
   </div>
 
-  <!-- Background -->
+  <!-- Particles -->
   <canvas id="particles"></canvas>
 
-  <!-- Mode Toggle -->
-  <button class="toggle-mode" onclick="toggleMode()">🌙</button>
+  <!-- Dark toggle (floating) -->
+  <button class="toggle-mode" id="toggleModeBtn" title="Toggle Dark/Light">🌙</button>
 
-  <!-- Main Section -->
+  <!-- Main centered container -->
   <main class="container">
-    <h1>💻 CyberX ⚡</h1>
-    <p>Click Contact to choose Email or WhatsApp</p>
+    <header class="hero">
+      <h1>💻 CyberX ⚡</h1>
+      <p class="lead">Click Contact to choose Email or WhatsApp</p>
+    </header>
 
     <div class="top-buttons">
-      <button class="btn contact-btn" onclick="showModal()">📩 Contact</button>
-      <button id="startBtn" class="btn start-btn">🚀 Start Experience</button>
+      <button class="btn" id="contactBtn">📩 Contact</button>
+      <button class="btn" id="startBtn">🚀 Start Experience</button>
     </div>
 
-    <section id="tools">
-      <h2>🧰 CyberX Tools</h2>
+    <!-- Tools list (centered) -->
+    <section id="tools-section">
+      <h2>🧰 Tools Center</h2>
       <div class="tools-grid">
-        <button class="tool">Password Generator</button>
-        <button class="tool">QR Code Maker</button>
-        <button class="tool">Text Encryptor</button>
-        <button class="tool">File Converter</button>
-        <button class="tool">Image Compressor</button>
-        <button class="tool">AI Chat</button>
-        <button class="tool">Color Picker</button>
-        <button class="tool">Code Formatter</button>
-        <button class="tool">Random Number Gen</button>
-        <button class="tool">Unit Converter</button>
-        <button class="tool">Clock / Timer</button>
-        <button class="tool">Markdown Viewer</button>
-        <button class="tool">To-Do App</button>
-        <button class="tool">Currency Converter</button>
-        <button class="tool">Weather Info</button>
-        <button class="tool">Notes Pad</button>
-        <button class="tool">Text to Speech</button>
-        <button class="tool">Speech to Text</button>
-        <button class="tool">IP Tracker</button>
-        <button class="tool">Code Runner</button>
+        <!-- 20 tools, each opens the tool panel -->
+        <div class="tool-card" data-tool="password">
+          <h3>🔐 Password Generator</h3>
+        </div>
+
+        <div class="tool-card" data-tool="qr">
+          <h3>📱 QR Code Generator</h3>
+        </div>
+
+        <div class="tool-card" data-tool="base64">
+          <h3>🔐 Base64 Encode / Decode</h3>
+        </div>
+
+        <div class="tool-card" data-tool="binary">
+          <h3>💻 Binary ↔ Text</h3>
+        </div>
+
+        <div class="tool-card" data-tool="unit">
+          <h3>⚖️ Unit Converter</h3>
+        </div>
+
+        <div class="tool-card" data-tool="img2b64">
+          <h3>🖼️ Image → Base64</h3>
+        </div>
+
+        <div class="tool-card" data-tool="tts">
+          <h3>🔊 Text → Speech</h3>
+        </div>
+
+        <div class="tool-card" data-tool="stt">
+          <h3>🎤 Speech → Text</h3>
+        </div>
+
+        <div class="tool-card" data-tool="color">
+          <h3>🎨 Color Picker</h3>
+        </div>
+
+        <div class="tool-card" data-tool="rgbhex">
+          <h3>🔁 RGB ↔ HEX</h3>
+        </div>
+
+        <div class="tool-card" data-tool="bmi">
+          <h3>🧮 BMI Calculator</h3>
+        </div>
+
+        <div class="tool-card" data-tool="age">
+          <h3>🎂 Age Calculator</h3>
+        </div>
+
+        <div class="tool-card" data-tool="currency">
+          <h3>💱 Currency Converter</h3>
+        </div>
+
+        <div class="tool-card" data-tool="countdown">
+          <h3>⏳ Countdown Timer</h3>
+        </div>
+
+        <div class="tool-card" data-tool="stopwatch">
+          <h3>⏱️ Stopwatch</h3>
+        </div>
+
+        <div class="tool-card" data-tool="rng">
+          <h3>🎲 Random Number</h3>
+        </div>
+
+        <div class="tool-card" data-tool="notes">
+          <h3>📝 Notes (local)</h3>
+        </div>
+
+        <div class="tool-card" data-tool="todo">
+          <h3>✅ Todo List (local)</h3>
+        </div>
+
+        <div class="tool-card" data-tool="ip">
+          <h3>🌐 IP Detector</h3>
+        </div>
+
+        <div class="tool-card" data-tool="clock">
+          <h3>🕒 Live Clock</h3>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Contact Modal -->
+  <!-- Contact modal -->
   <div id="contactModal" class="modal-backdrop">
     <div class="modal">
       <h3>Contact Me</h3>
-      <button class="modal-btn" onclick="window.location='mailto:imsyber4@gmail.com'">📧 Email</button>
-      <button class="modal-btn" onclick="window.open('https://wa.me/923192084504?text=Hi,%20I%20want%20to%20discuss%20a%20website.')">💬 WhatsApp</button>
-      <button class="modal-btn close-btn" onclick="closeModal()">❌ Close</button>
+      <button class="modal-btn" onclick="window.location='mailto:imsyber4@gmail.com'">📧 Email Me</button>
+      <button class="modal-btn" onclick="window.open('https://wa.me/923192084504')">💬 WhatsApp</button>
+      <button class="modal-btn close" id="closeContact">❌ Close</button>
     </div>
   </div>
 
-  <div class="footer-note">
-    ✨ More features coming soon... Stay tuned! ⚡
+  <!-- Tool panel (single panel used for all tools) -->
+  <div id="toolPanel" class="modal-backdrop">
+    <div class="modal" id="toolPanelInner">
+      <button id="closeToolPanel" class="modal-btn close">Close Tool</button>
+      <h3 id="toolTitle">Tool</h3>
+      <div id="toolUi"></div>
+    </div>
   </div>
+
+  <div class="footer-note">✨ More features coming soon... Stay tuned! ⚡</div>
 
   <audio id="bgMusic" loop>
     <source src="music/music_anna_ansak.mp3" type="audio/mpeg" />
@@ -79,36 +149,7 @@
 
   <script src="script.js"></script>
 </body>
-</html>// Modal
-function showModal(){document.getElementById("contactModal").classList.add("show");}
-function closeModal(){document.getElementById("contactModal").classList.remove("show");}
-
-// Background Animation
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-canvas.width=innerWidth;
-canvas.height=innerHeight;
-
-let particles=[];
-for(let i=0;i<60;i++){
-  particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    size:Math.random()*2+1,
-    speedX:(Math.random()-0.5)*0.5,
-    speedY:(Math.random()-0.5)*0.5
-  });
-}
-
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  for(let p of particles){
-    p.x+=p.speedX;p.y+=p.speedY;
-    if(p.x>canvas.width||p.x<0)p.speedX*=-1;
-    if(p.y>canvas.height||p.y<0)p.speedY*=-1;
-    ctx.fillStyle="rgba(123,47,247,0.7)";
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+</html>    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
     ctx.fill();
   }
   requestAnimationFrame(animate);
