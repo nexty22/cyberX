@@ -1,114 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CyberX — Ultimate Final</title>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap');
-
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Inter',sans-serif;background:radial-gradient(circle at center,#2b0047,#000010);color:#fff;overflow-x:hidden;transition:.5s;}
-.light-mode{background:radial-gradient(circle at center,#f1f1f1,#d4d4d4);color:#000;}
-
-/* Loader */
-#loader{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at center,#2b0047,#000010);z-index:9999;font-family:'Orbitron',sans-serif;font-size:2rem;color:#fff;text-align:center;}
-.loader-content{display:flex;flex-direction:column;align-items:center;gap:15px;}
-.loader-emoji{font-size:3rem;animation:floatEmoji 2s ease-in-out infinite alternate;}
-@keyframes floatEmoji{0%{transform:translateY(0);}100%{transform:translateY(-10px);}}
-#progress{font-size:1.3rem;margin-top:10px;background:rgba(255,255,255,0.05);padding:6px 16px;border-radius:12px;border:1px solid rgba(123,47,247,0.2);}
-
-/* Canvas */
-canvas{position:fixed;inset:0;z-index:-1;display:block;}
-
-/* Main UI */
-.container{max-width:1100px;margin:0 auto;padding:40px 20px;text-align:center;}
-h1{font-family:'Orbitron',sans-serif;font-size:3rem;text-shadow:0 0 20px #7b2ff7;}
-p.lead{margin-top:10px;color:#dcd6ff;font-size:1.15rem;}
-.top-buttons{margin-top:28px;display:flex;flex-direction:column;gap:12px;align-items:center;}
-.btn{background:linear-gradient(45deg,#7b2ff7,#00f0ff);border:none;color:#fff;padding:12px 18px;border-radius:28px;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:.4s;}
-.btn:hover{transform:scale(1.05);}
-
-/* Toggle Mode Button */
-.toggle-mode{position:fixed;top:15px;right:15px;padding:8px 14px;border:none;border-radius:50%;background:#222;color:#fff;font-size:1.2rem;cursor:pointer;z-index:10000;}
-
-/* Modal */
-.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:9998;opacity:0;pointer-events:none;transition:.5s;}
-.modal-backdrop.show{opacity:1;pointer-events:auto;}
-.modal{width:min(400px,90%);background:#0b0018;padding:20px;border-radius:14px;color:#fff;text-align:center;}
-.modal-btn{width:100%;margin:8px 0;padding:12px;border-radius:12px;border:none;cursor:pointer;font-weight:600;background:linear-gradient(45deg,#7b2ff7,#00f0ff);color:#fff;}
-.modal-btn.close{background:transparent;border:1px solid #fff;}
-
-/* Footer */
-.footer-note{text-align:center;margin:20px;color:#ccc;font-size:0.9rem;}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberX ⚡</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-<!-- Loader -->
-<div id="loader">
-  <div class="loader-content">
-    <div class="loader-emoji">⚡</div>
-    <div class="loader-text">CyberX Loading...</div>
-    <div id="progress">0%</div>
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-content">
+      <div class="loader-emoji">⚡</div>
+      <div class="loader-text">CyberX Loading...</div>
+      <div id="progress">0%</div>
+    </div>
   </div>
-</div>
 
-<!-- Background Canvas -->
-<canvas id="particles"></canvas>
+  <!-- Background -->
+  <canvas id="particles"></canvas>
 
-<!-- Toggle Mode -->
-<button class="toggle-mode" onclick="toggleMode()">🌙</button>
+  <!-- Mode Toggle -->
+  <button class="toggle-mode" onclick="toggleMode()">🌙</button>
 
-<!-- Main Section -->
-<main class="container">
-  <h1>💻 CyberX ⚡</h1>
-  <p class="lead">Click Contact to choose Email or WhatsApp</p>
-  <div class="top-buttons">
-    <button class="btn" onclick="showModal()">📩 Contact</button>
-    <button id="startBtn" class="btn">🚀 Start Experience</button>
+  <!-- Main Section -->
+  <main class="container">
+    <h1>💻 CyberX ⚡</h1>
+    <p>Click Contact to choose Email or WhatsApp</p>
+
+    <div class="top-buttons">
+      <button class="btn contact-btn" onclick="showModal()">📩 Contact</button>
+      <button id="startBtn" class="btn start-btn">🚀 Start Experience</button>
+    </div>
+
+    <section id="tools">
+      <h2>🧰 CyberX Tools</h2>
+      <div class="tools-grid">
+        <button class="tool">Password Generator</button>
+        <button class="tool">QR Code Maker</button>
+        <button class="tool">Text Encryptor</button>
+        <button class="tool">File Converter</button>
+        <button class="tool">Image Compressor</button>
+        <button class="tool">AI Chat</button>
+        <button class="tool">Color Picker</button>
+        <button class="tool">Code Formatter</button>
+        <button class="tool">Random Number Gen</button>
+        <button class="tool">Unit Converter</button>
+        <button class="tool">Clock / Timer</button>
+        <button class="tool">Markdown Viewer</button>
+        <button class="tool">To-Do App</button>
+        <button class="tool">Currency Converter</button>
+        <button class="tool">Weather Info</button>
+        <button class="tool">Notes Pad</button>
+        <button class="tool">Text to Speech</button>
+        <button class="tool">Speech to Text</button>
+        <button class="tool">IP Tracker</button>
+        <button class="tool">Code Runner</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Contact Modal -->
+  <div id="contactModal" class="modal-backdrop">
+    <div class="modal">
+      <h3>Contact Me</h3>
+      <button class="modal-btn" onclick="window.location='mailto:imsyber4@gmail.com'">📧 Email</button>
+      <button class="modal-btn" onclick="window.open('https://wa.me/923192084504?text=Hi,%20I%20want%20to%20discuss%20a%20website.')">💬 WhatsApp</button>
+      <button class="modal-btn close-btn" onclick="closeModal()">❌ Close</button>
+    </div>
   </div>
+
+  <div class="footer-note">
+    ✨ More features coming soon... Stay tuned! ⚡
+  </div>
+
   <audio id="bgMusic" loop>
     <source src="music/music_anna_ansak.mp3" type="audio/mpeg" />
   </audio>
-</main>
 
-<!-- Contact Modal -->
-<div id="contactModal" class="modal-backdrop">
-  <div class="modal">
-    <h3>Contact Me</h3>
-    <button class="modal-btn" onclick="window.location='mailto:imsyber4@gmail.com'">📧 Email Me</button>
-    <button class="modal-btn" onclick="window.open('https://wa.me/923192084504?text=Hi,%20I%20want%20to%20discuss%20a%20website.')">💬 WhatsApp</button>
-    <button class="modal-btn close" onclick="closeModal()">❌ Close</button>
-  </div>
-</div>
-
-<!-- Footer -->
-<div class="footer-note">✨ CyberX — Built with ⚡ Passion & Code ⚡</div>
-
-<!-- Script -->
-<script>
-document.addEventListener("DOMContentLoaded",()=>{
-  let progress=0;
-  const loader=document.getElementById("loader");
-  const progressText=document.getElementById("progress");
-  const interval=setInterval(()=>{
-    progress+=2;
-    progressText.innerText=progress+"%";
-    if(progress>=100){
-      clearInterval(interval);
-      loader.style.transition="opacity 0.8s ease";
-      loader.style.opacity="0";
-      setTimeout(()=>loader.style.display="none",800);
-    }
-  },100);
-});
-
-// Mode Toggle
-function toggleMode(){document.body.classList.toggle("light-mode");}
-
-// Modal
+  <script src="script.js"></script>
+</body>
+</html>// Modal
 function showModal(){document.getElementById("contactModal").classList.add("show");}
 function closeModal(){document.getElementById("contactModal").classList.remove("show");}
 
