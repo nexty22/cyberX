@@ -3,81 +3,70 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CyberX — Nexty</title>
+  <title>CyberX — Nexty (Full Tools)</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <!-- Loader -->
-  <div id="loader">
-    <div class="loader-emoji">⚡</div>
-    <div class="loader-text">CyberX Loading...</div>
-    <div id="progress">0%</div>
+  <div id="pageLoader" aria-hidden="false">
+    <div class="ring" aria-hidden="true"></div>
+    <div id="pageText">CyberX Loading...</div>
+    <div id="pageProgress">0%</div>
   </div>
 
-  <!-- Particles -->
+  <!-- Background canvas -->
   <canvas id="particles"></canvas>
 
-  <!-- Toggle -->
-  <button id="modeToggle" class="toggle-mode" title="Toggle dark/light">🌙</button>
+  <!-- Mode toggle -->
+  <button id="modeBtn" class="modeBtn">🌙</button>
 
-  <main class="wrap">
-    <header class="top">
-      <h1 class="brand">💻 CyberX ⚡</h1>
-      <p class="lead">Next-generation interactive tools crafted for creativity.</p>
-      <div class="controls">
-        <button id="contactBtn" class="btn">📩 Contact</button>
-        <button id="startBtn" class="btn">🚀 Start Experience</button>
-      </div>
-      <div class="tagline">Nexty — Where Innovation Meets Imagination.</div>
-    </header>
+  <main class="container" id="mainContent" aria-hidden="true">
+    <div class="brand">💻 CyberX ⚡</div>
+    <p class="lead">Click Contact to choose Email or WhatsApp</p>
 
-    <!-- Bottom buttons (appear after start) -->
-    <section class="bottom">
-      <div id="bottomButtons" class="bottom-buttons">
-        <button id="toolsBtn" class="btn">🧰 Tools</button>
-        <button id="soon1" class="btn">🔜 Coming Soon</button>
-        <button id="soon2" class="btn">🔜 Coming Soon</button>
-      </div>
+    <div class="top-buttons">
+      <button id="contactBtn" class="btn">📩 Contact</button>
+      <button id="startBtn" class="btn">🚀 Start Experience</button>
+    </div>
 
-      <!-- modal box for tools (centered window) -->
-      <div id="toolModal" class="modal-backdrop" aria-hidden="true">
-        <div class="modal-box" role="dialog" aria-modal="true">
-          <header class="modal-header">
-            <h2 id="modalTitle">Tool</h2>
-            <button id="closeModal" class="modal-close">✖</button>
-          </header>
-          <div id="modalBody" class="modal-body">
-            <!-- tool UI injected here -->
-          </div>
-        </div>
-      </div>
+    <div class="tagline">Nexty — Where Innovation Meets Imagination.</div>
 
-      <!-- Tools grid (hidden unless Tools button pressed) -->
-      <section id="toolsPanel" class="tools-panel" aria-hidden="true">
-        <h3>Toolbox</h3>
-        <div id="toolsGrid" class="tools-grid">
-          <!-- 25 tool cards: data-tool attribute maps to tool id in script -->
-        </div>
-      </section>
+    <div class="extra-row" id="extraRow">
+      <button id="toolsBtn" class="btn">🧰 Tools</button>
+      <button class="btn" onclick="alert('Coming soon... 🔜')">🔜 Coming Soon</button>
+      <button class="btn" onclick="alert('Coming soon... 🔜')">🔜 Coming Soon</button>
+    </div>
+
+    <section id="toolsPanel" aria-hidden="true">
+      <h3>Toolbox</h3>
+      <div id="toolsGrid" class="tools-grid"></div>
     </section>
   </main>
 
-  <!-- Contact modal simple -->
-  <div id="contactModal" class="modal-backdrop" aria-hidden="true">
+  <div class="footer">✨ Built by Nexty — The Future Starts Here ⚡</div>
+
+  <!-- Contact modal -->
+  <div id="contactModal" class="modal" aria-hidden="true">
     <div class="modal-box">
-      <header class="modal-header">
-        <h2>Contact</h2>
-        <button class="modal-close" onclick="closeContact()">✖</button>
-      </header>
-      <div class="modal-body">
-        <button class="btn" onclick="window.location='mailto:imsyber4@gmail.com'">📧 Email</button>
-        <button class="btn" onclick="window.open('https://wa.me/923192084504?text=Hi%20Nexty')">💬 WhatsApp</button>
+      <h3>Contact Me</h3>
+      <div class="modal-actions">
+        <button class="smallBtn" onclick="location.href='mailto:imsyber4@gmail.com'">📧 Email</button>
+        <button class="smallBtn" onclick="window.open('https://wa.me/923192084504?text=Hi')">💬 WhatsApp</button>
+        <button class="smallBtn ghost" onclick="closeContact()">Close</button>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="footer">✨ Built by Nexty — The Future Starts Here ⚡</footer>
+  <!-- Tool popup (centered) -->
+  <div id="toolPopup" class="popup" aria-hidden="true">
+    <div class="popup-box">
+      <h3 id="toolTitle"></h3>
+      <div id="toolBody"></div>
+      <div class="popup-actions">
+        <button class="smallBtn" id="toolCloseBtn">Close</button>
+      </div>
+    </div>
+  </div>
 
   <!-- audio -->
   <audio id="bgMusic" loop preload="auto">
@@ -85,30 +74,5 @@
   </audio>
 
   <script src="script.js"></script>
-</body>
-</html>  </audio>
-
-  <script src="script.js"></script>
-</body>
-</html>    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-    ctx.fill();
-  }
-  requestAnimationFrame(animate);
-}
-animate();
-
-// Music
-const bgMusic=document.getElementById("bgMusic");
-const startBtn=document.getElementById("startBtn");
-startBtn.addEventListener("click",()=>{
-  if(bgMusic.paused){
-    bgMusic.play();
-    startBtn.innerHTML="⏸ Pause Music";
-  } else {
-    bgMusic.pause();
-    startBtn.innerHTML="🚀 Start Experience";
-  }
-});
-</script>
 </body>
 </html>
