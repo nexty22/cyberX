@@ -1,66 +1,38 @@
-# ⚡ CyberX – Multi Utility Hub  
+# ⚡ CyberX
 
-[![Stars](https://img.shields.io/github/stars/nexty22/cyberX?style=for-the-badge)](https://github.com/nexty22/cyberX/stargazers)
-[![Forks](https://img.shields.io/github/forks/nexty22/cyberX?style=for-the-badge)](https://github.com/nexty22/cyberX/network/members)
-[![Issues](https://img.shields.io/github/issues/nexty22/cyberX?style=for-the-badge)](https://github.com/nexty22/cyberX/issues)
-[![License](https://img.shields.io/github/license/nexty22/cyberX?style=for-the-badge)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0-blueviolet?style=for-the-badge)]()
+A futuristic multi-tool web app built for creators, developers, and tech enthusiasts.  
+CyberX brings together 20+ useful tools — all wrapped in a minimal, cyberpunk-inspired interface.
 
 ---
 
-### 🚀 Overview  
-**CyberX** is a futuristic all-in-one web hub featuring 20+ online tools in a neon cyberpunk interface.  
-It combines performance, smooth animations, and a sleek loader system — built using pure **HTML**, **CSS**, and **JavaScript**.  
-
-🌐 **Live Demo:** [https://nexty22.github.io/cyberX](https://nexty22.github.io/cyberX)
+## 🌐 Live Demo  
+👉 [https://nexty22.github.io/cyberX](https://nexty22.github.io/cyberX)
 
 ---
 
-### 🎨 Features  
-✅ Futuristic neon UI  
-✅ Animated preloader with percentage tracking  
-✅ Floating dark/light mode button  
-✅ Background particle animation  
-✅ Built-in music control  
-✅ Responsive layout for mobile & desktop  
-✅ 20+ Utility Tools (AI, calculator, encoder, text, converter, etc.)  
-✅ Smooth transitions & glowing effects  
+## ✨ Overview  
+
+CyberX is designed to be fast, responsive, and fun to use.  
+It features a glowing loader, animated particles, dark/light mode toggle, background music, and a clean modular layout where each tool opens within the same page.
+
+This isn’t just a showcase — it’s a personal utility hub.
 
 ---
 
-### 🧩 Tools List  
-Here are some of the included tools (expandable):  
-- 🔢 Calculator  
-- 📅 Date Converter  
-- 🧮 BMI Calculator  
-- 💡 QR Code Generator  
-- 📸 Image Compressor  
-- 🔤 Text Case Converter  
-- 🔒 Base64 Encoder/Decoder  
-- 🌈 Color Picker  
-- 🎵 Audio Player  
-- 📁 File Size Converter  
-- 🕒 Stopwatch  
-- ⏰ Countdown Timer  
-- 🧭 Compass (if supported)  
-- 🧠 Random Password Generator  
-- 🌐 IP Lookup  
-- 📝 Notes Pad  
-- 🧹 JSON Formatter  
-- 🔢 Number System Converter  
-- 🗜 URL Shortener  
-- 📦 And more coming soon...
+## 🧩 Core Tools  
+
+| Category | Tools |
+|-----------|-------|
+| 💻 Development | Code Formatter, JSON Beautifier, Base64 Encoder/Decoder |
+| 🔐 Security | Password Generator, Text Encrypt/Decrypt |
+| 📄 Productivity | Notes, To-Do, Markdown Viewer |
+| 🎨 Design | Color Picker, Image Compressor, QR Generator |
+| 📊 Utilities | Unit Converter, File Converter, Random Number Generator |
+| 🌐 Info | IP Tracker, Weather, Currency Converter |
+| 🎧 Others | Text-to-Speech, Stopwatch, Countdown Timer, Clock |
+
+More tools are being added regularly.
 
 ---
 
-### 💻 Installation / Run Locally  
-
-```bash
-# 1️⃣ Clone the repository
-git clone https://github.com/nexty22/cyberX.git
-
-# 2️⃣ Navigate to the project folder
-cd cyberX
-
-# 3️⃣ Open the project
-# You can open index.html directly in any browser
+## 🧱 Project Structure
