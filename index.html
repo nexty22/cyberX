@@ -1,78 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CyberX — Nexty (Full Tools)</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberX — Nexty</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Loader -->
-  <div id="pageLoader" aria-hidden="false">
-    <div class="ring" aria-hidden="true"></div>
-    <div id="pageText">CyberX Loading...</div>
-    <div id="pageProgress">0%</div>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-emoji">⚡</div>
+  <div class="loader-text">CyberX Loading...</div>
+  <div id="progress">0%</div>
+</div>
+
+<canvas id="particles"></canvas>
+<button class="toggle-mode" onclick="toggleMode()">🌙 Mode</button>
+
+<main class="container">
+  <h1>💻 CyberX ⚡</h1>
+  <p class="lead">Click Contact to choose Email or WhatsApp</p>
+
+  <div class="top-buttons">
+    <button class="btn" onclick="showModal()">📩 Contact</button>
+    <button id="startBtn" class="btn">🚀 Start Experience</button>
   </div>
 
-  <!-- Background canvas -->
-  <canvas id="particles"></canvas>
+  <div class="tagline">Nexty — Where Innovation Meets Imagination.</div>
 
-  <!-- Mode toggle -->
-  <button id="modeBtn" class="modeBtn">🌙</button>
-
-  <main class="container" id="mainContent" aria-hidden="true">
-    <div class="brand">💻 CyberX ⚡</div>
-    <p class="lead">Click Contact to choose Email or WhatsApp</p>
-
-    <div class="top-buttons">
-      <button id="contactBtn" class="btn">📩 Contact</button>
-      <button id="startBtn" class="btn">🚀 Start Experience</button>
-    </div>
-
-    <div class="tagline">Nexty — Where Innovation Meets Imagination.</div>
-
-    <div class="extra-row" id="extraRow">
-      <button id="toolsBtn" class="btn">🧰 Tools</button>
-      <button class="btn" onclick="alert('Coming soon... 🔜')">🔜 Coming Soon</button>
-      <button class="btn" onclick="alert('Coming soon... 🔜')">🔜 Coming Soon</button>
-    </div>
-
-    <section id="toolsPanel" aria-hidden="true">
-      <h3>Toolbox</h3>
-      <div id="toolsGrid" class="tools-grid"></div>
-    </section>
-  </main>
-
-  <div class="footer">✨ Built by Nexty — The Future Starts Here ⚡</div>
-
-  <!-- Contact modal -->
-  <div id="contactModal" class="modal" aria-hidden="true">
-    <div class="modal-box">
-      <h3>Contact Me</h3>
-      <div class="modal-actions">
-        <button class="smallBtn" onclick="location.href='mailto:imsyber4@gmail.com'">📧 Email</button>
-        <button class="smallBtn" onclick="window.open('https://wa.me/923192084504?text=Hi')">💬 WhatsApp</button>
-        <button class="smallBtn ghost" onclick="closeContact()">Close</button>
-      </div>
-    </div>
+  <div class="extra-buttons" id="extraButtons">
+    <button class="btn" id="toolsBtn">🧰 Tools</button>
+    <button class="btn">🔜 Coming Soon 1</button>
+    <button class="btn">🔜 Coming Soon 2</button>
   </div>
 
-  <!-- Tool popup (centered) -->
-  <div id="toolPopup" class="popup" aria-hidden="true">
-    <div class="popup-box">
-      <h3 id="toolTitle"></h3>
-      <div id="toolBody"></div>
-      <div class="popup-actions">
-        <button class="smallBtn" id="toolCloseBtn">Close</button>
-      </div>
-    </div>
+  <div id="toolsBox">
+    <h3>Toolbox</h3>
+    <div class="tool-grid" id="toolGrid"></div>
   </div>
+</main>
 
-  <!-- audio -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="music/music_anna_ansak.mp3" type="audio/mpeg">
-  </audio>
+<div class="footer-note">✨ Built by Nexty — The Future Starts Here ⚡</div>
 
-  <script src="script.js"></script>
+<audio id="bgMusic" loop>
+  <source src="music/music_anna_ansak.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Contact Modal -->
+<div id="contactModal" class="modal-backdrop" style="display:none;">
+  <div class="modal">
+    <h3>Contact Me</h3>
+    <button class="modal-btn" onclick="window.location='mailto:imsyber4@gmail.com'">📧 Email Me</button>
+    <button class="modal-btn" onclick="window.open('https://wa.me/923192084504?text=Hi,%20I%20want%20to%20discuss%20a%20website.')">💬 WhatsApp</button>
+    <button class="modal-btn" onclick="closeModal()">❌ Close</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
