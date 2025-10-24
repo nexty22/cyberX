@@ -1,66 +1,69 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CyberX — Nexty (25 Tools)</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberX — Nexty</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <canvas id="particles"></canvas>
 
-  <button id="modeBtn" class="toggle-mode" title="Toggle dark/light">🌙</button>
+  <button class="toggle-mode" onclick="toggleMode()">🌙 Mode</button>
 
-  <main class="container glass" id="main">
-    <h1 class="brand">💻 CyberX ⚡</h1>
+  <main class="container">
+    <h1>💻 CyberX ⚡</h1>
     <p class="lead">Click Contact to choose Email or WhatsApp</p>
 
     <div class="top-buttons">
-      <button id="contactBtn" class="btn">📩 Contact</button>
+      <button class="btn" onclick="showModal()">📩 Contact</button>
       <button id="startBtn" class="btn">🚀 Start Experience</button>
     </div>
 
     <div class="tagline">Nexty — Where Innovation Meets Imagination.</div>
 
     <div class="extra-buttons" id="extraButtons">
-      <button id="toolsBtn" class="btn">🧰 Tools</button>
-      <button class="btn" onclick="alert('Coming soon... 🔜')">🔜 Coming Soon</button>
-      <button class="btn" onclick="alert('Coming soon... 🔜')">🔜 Coming Soon</button>
+      <button class="btn" id="toolsBtn">🧰 Tools</button>
+      <button class="btn" onclick="alert('Coming soon... 🔜')">🔜 Coming Soon 1</button>
+      <button class="btn" onclick="alert('Coming soon... 🔜')">🔜 Coming Soon 2</button>
     </div>
 
-    <section id="toolsBox" aria-hidden="true">
+    <div id="toolsBox">
       <h3>Toolbox</h3>
-      <div id="toolsGrid" class="tool-grid"></div>
-    </section>
-  </main>
-
-  <div class="footer">✨ Built by Nexty — The Future Starts Here ⚡</div>
-
-  <!-- Contact Modal -->
-  <div id="contactModal" class="modal-backdrop" aria-hidden="true" style="display:none;">
-    <div class="modal">
-      <h3>Contact Me</h3>
-      <button class="modal-btn" onclick="location.href='mailto:imsyber4@gmail.com'">📧 Email Me</button>
-      <button class="modal-btn" onclick="window.open('https://wa.me/923192084504?text=Hi')">💬 WhatsApp</button>
-      <button class="modal-btn ghost" onclick="closeContact()">Close</button>
-    </div>
-  </div>
-
-  <!-- Tool Popup (center) -->
-  <div id="toolPopup" class="popup" aria-hidden="true" style="display:none;">
-    <div class="popup-box" role="dialog" aria-modal="true">
-      <h3 id="toolTitle">Tool</h3>
-      <div id="toolBody"></div>
-      <div class="popup-actions">
-        <button id="toolClose" class="smallBtn ghost">Close</button>
+      <div class="tool-grid">
+        <div class="tool" onclick="openTool('idea')">💡 Idea Generator</div>
+        <div class="tool disabled">🧮 Calculator</div>
+        <div class="tool disabled">📅 Scheduler</div>
+        <div class="tool disabled">📝 Notes</div>
       </div>
     </div>
-  </div>
+  </main>
 
-  <!-- audio -->
-  <audio id="bgMusic" loop preload="auto">
+  <div class="footer-note">✨ Built by Nexty — The Future Starts Here ⚡</div>
+
+  <audio id="bgMusic" loop>
     <source src="music/music_anna_ansak.mp3" type="audio/mpeg">
   </audio>
+
+  <!-- Modal -->
+  <div id="contactModal" class="modal-backdrop" style="display:none;">
+    <div class="modal">
+      <h3>Contact Me</h3>
+      <button class="modal-btn" onclick="window.location='mailto:imsyber4@gmail.com'">📧 Email Me</button>
+      <button class="modal-btn" onclick="window.open('https://wa.me/923192084504?text=Hi,%20I%20want%20to%20discuss%20a%20website.')">💬 WhatsApp</button>
+      <button class="modal-btn" onclick="closeModal()">❌ Close</button>
+    </div>
+  </div>
+
+  <div id="toolPopup" class="modal-backdrop" style="display:none;">
+    <div class="modal">
+      <h3>💡 Idea Generator</h3>
+      <p id="ideaOutput">Click below to get a random idea!</p>
+      <button class="modal-btn" onclick="generateIdea()">✨ New Idea</button>
+      <button class="modal-btn" onclick="closeTool()">❌ Close</button>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
