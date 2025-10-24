@@ -3,624 +3,77 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CyberX — Nexty (All-in-one)</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap');
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{
-      font-family:'Inter',sans-serif;
-      background:radial-gradient(circle at center,#1a002d,#000010);
-      color:#fff;text-align:center;overflow-x:hidden;
-      transition:background .3s,color .3s;
-    }
-    .light-mode{background:radial-gradient(circle at center,#f5f5f5,#d1d1d1);color:#111}
-    canvas{position:fixed;inset:0;z-index:-1;display:block}
-
-    .container{max-width:1000px;margin:40px auto;padding:28px}
-    .glass{background:rgba(255,255,255,0.03);border-radius:14px;padding:28px;box-shadow:0 8px 40px rgba(7,4,30,0.6);backdrop-filter: blur(8px);}
-    .brand{font-family:'Orbitron',sans-serif;font-size:2.6rem;text-shadow:0 0 18px #7b2ff7}
-    .lead{color:#dcd6ff;margin-top:6px}
-
-    .top-buttons{margin-top:20px;display:flex;flex-direction:column;gap:12px;align-items:center}
-    .btn{background:linear-gradient(45deg,#7b2ff7,#00f0ff);border:none;color:#fff;padding:12px 20px;border-radius:28px;cursor:pointer;font-weight:700;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 30px rgba(123,47,247,0.12);transition:transform .15s}
-    .btn:hover{transform:translateY(-6px)}
-    .tagline{margin:22px 0;font-family:'Orbitron',sans-serif;color:#cdbfff}
-
-    .extra-buttons{display:none;flex-direction:column;gap:10px;align-items:center;margin-top:12px}
-    .extra-buttons.show{display:flex;animation:fadeInUp .45s ease}
-    @keyframes fadeInUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-    #toolsBox{display:none;margin:18px auto;max-width:860px;padding:18px;border-radius:12px;background:rgba(255,255,255,0.02)}
-    #toolsBox.show{display:block}
-    .tool-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
-    .tool-card{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));padding:12px;border-radius:10px;cursor:pointer;font-weight:700;transition:transform .12s,box-shadow .12s}
-    .tool-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(123,47,247,0.06)}
-
-    .popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);align-items:center;justify-content:center;z-index:20000}
-    .popup-box{background:linear-gradient(180deg,#0a0016,#120023);padding:18px;border-radius:12px;color:#fff;max-width:760px;width:92%;box-shadow:0 30px 80px rgba(7,4,30,0.7);border:1px solid rgba(123,47,247,0.12)}
-    .popup-box h3{font-family:'Orbitron',sans-serif;margin-bottom:8px}
-    .popup-actions{margin-top:12px}
-    .smallBtn{padding:8px 12px;border-radius:8px;border:none;background:linear-gradient(45deg,#7b2ff7,#00f0ff);color:#fff;cursor:pointer}
-    .smallBtn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06)}
-
-    .modal-backdrop{display:none;align-items:center;justify-content:center;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:15000}
-    .modal{background:linear-gradient(180deg,#120023,#0b0018);padding:14px;border-radius:10px;color:#fff;max-width:360px;width:90%}
-    .modal h3{font-family:'Orbitron',sans-serif;margin-bottom:8px}
-    .modal-btn{display:block;width:100%;margin-top:8px;padding:10px;border-radius:8px;border:none;background:linear-gradient(45deg,#7b2ff7,#00f0ff);color:#fff;cursor:pointer}
-
-    .toggle-mode{position:fixed;top:14px;right:14px;border:none;background:#fff;color:#000;padding:10px;border-radius:12px;z-index:10001;cursor:pointer}
-    .footer{margin:26px 0;color:#d6cfff;opacity:.85;text-align:center;font-size:.95rem}
-    .input,textarea{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
-    .row{display:flex;gap:8px;justify-content:center;align-items:center}
-    @media(max-width:640px){ .brand{font-size:1.6rem} .tool-grid{grid-template-columns:repeat(2,1fr)} }
-  </style>
+  <title>CyberX — Nexty</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <canvas id="particles"></canvas>
-  <button id="modeBtn" class="toggle-mode" title="Toggle dark/light">🌙</button>
 
-  <main class="container glass" id="main">
-    <div class="brand">💻 CyberX ⚡</div>
-    <p class="lead">Click Contact to choose Email or WhatsApp — Start to unlock tools</p>
+  <button id="toggleMode" class="toggle-mode" title="Toggle dark/light">🌙</button>
+
+  <main class="container" id="main">
+    <header class="header">
+      <h1 class="brand">💻 CyberX ⚡ — Nexty</h1>
+      <p class="lead">25 advanced mini-tools. Click <strong>Start Experience</strong> then <strong>Tools</strong>.</p>
+    </header>
 
     <div class="top-buttons">
       <button id="contactBtn" class="btn">📩 Contact</button>
       <button id="startBtn" class="btn">🚀 Start Experience</button>
     </div>
 
-    <div class="tagline">Nexty — Where Innovation Meets Imagination.</div>
-
-    <div class="extra-buttons" id="extraButtons">
+    <div id="extraBtns" class="extra-buttons" aria-hidden="true">
       <button id="toolsBtn" class="btn">🧰 Tools</button>
-      <button class="btn" onclick="alert('Coming soon... 🔜')">🔜 Coming Soon</button>
-      <button class="btn" onclick="alert('Coming soon... 🔜')">🔜 Coming Soon</button>
+      <button id="coming1" class="btn">🚧 Coming Soon 1</button>
+      <button id="coming2" class="btn">🚧 Coming Soon 2</button>
     </div>
 
-    <section id="toolsBox" aria-hidden="true">
-      <h3>Toolbox</h3>
-      <div id="toolsGrid" class="tool-grid"></div>
+    <div class="tagline">Nexty — Where innovation meets imagination ✨</div>
+
+    <section id="visitorStats" class="visitor-stats">
+      <div class="stat-card">👁️ <strong id="pageviewsCount">—</strong><div class="stat-label">Pageviews</div></div>
+      <div class="stat-card">🧍 <strong id="uniqueCount">—</strong><div class="stat-label">Unique Visitors</div></div>
+      <div class="stat-card">⏱️ <strong id="activeCount">—</strong><div class="stat-label">Active</div></div>
     </section>
+
+    <section id="toolsBox" class="tools-box" aria-hidden="true">
+      <h2 class="tools-title">🧰 Toolbox</h2>
+      <div id="toolsGrid" class="tool-grid" role="list"></div>
+    </section>
+
+    <footer class="footer">✨ Built by Nexty — The Future Starts Here ⚡</footer>
   </main>
-
-  <div class="footer">✨ Built by Nexty — The Future Starts Here ⚡</div>
-
-  <!-- Contact Modal -->
-  <div id="contactModal" class="modal-backdrop" aria-hidden="true">
-    <div class="modal">
-      <h3>Contact Me</h3>
-      <button class="modal-btn" onclick="location.href='mailto:imsyber4@gmail.com'">📧 Email Me</button>
-      <button class="modal-btn" onclick="window.open('https://wa.me/923192084504?text=Hi')">💬 WhatsApp</button>
-      <button class="modal-btn ghost" onclick="closeContact()">Close</button>
-    </div>
-  </div>
 
   <!-- Tool Popup -->
   <div id="toolPopup" class="popup" aria-hidden="true">
-    <div class="popup-box" role="dialog" aria-modal="true">
-      <h3 id="toolTitle">Tool</h3>
-      <div id="toolBody"></div>
-      <div class="popup-actions">
-        <button id="toolClose" class="smallBtn ghost">Close</button>
+    <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <div class="popup-header">
+        <h3 id="popupTitle" class="popup-title"></h3>
+        <div class="popup-actions">
+          <button id="popupClose" class="smallBtn ghost">Close</button>
+        </div>
+      </div>
+      <div id="popupBody" class="popup-body"></div>
+    </div>
+  </div>
+
+  <!-- Contact Modal (same popup style) -->
+  <div id="contactModal" class="popup" aria-hidden="true">
+    <div class="popup-box">
+      <div class="popup-header">
+        <h3>Contact Nexty</h3>
+        <div class="popup-actions"><button id="contactClose" class="smallBtn ghost">Close</button></div>
+      </div>
+      <div class="popup-body">
+        <p>📧 <a href="mailto:imsyber4@gmail.com">imsyber4@gmail.com</a></p>
+        <p>💬 <a href="https://wa.me/923192084504?text=Hi%20Nexty" target="_blank" rel="noopener">WhatsApp</a></p>
       </div>
     </div>
   </div>
 
-  <!-- Audio (optional): place file at music/music_anna_ansak.mp3 -->
-  <audio id="bgMusic" loop preload="auto">
-    <source src="music/music_anna_ansak.mp3" type="audio/mpeg">
-  </audio>
+  <!-- audio -->
+  <audio id="bgMusic" loop preload="auto"><source src="music/music_anna_ansak.mp3" type="audio/mpeg"></audio>
 
-  <script>
-  /*******************************
-   *  CyberX — Single-file final
-   *  25 tools, popup, particles,
-   *  dark/light, music toggle
-   *******************************/
-
-  document.addEventListener('DOMContentLoaded', () => {
-    /* ===== elements ===== */
-    const modeBtn = document.getElementById('modeBtn');
-    const contactBtn = document.getElementById('contactBtn');
-    const contactModal = document.getElementById('contactModal');
-    const startBtn = document.getElementById('startBtn');
-    const bgMusic = document.getElementById('bgMusic');
-    const extraButtons = document.getElementById('extraButtons');
-    const toolsBtn = document.getElementById('toolsBtn');
-    const toolsBox = document.getElementById('toolsBox');
-    const toolsGrid = document.getElementById('toolsGrid');
-    const toolPopup = document.getElementById('toolPopup');
-    const toolTitle = document.getElementById('toolTitle');
-    const toolBody = document.getElementById('toolBody');
-    const toolClose = document.getElementById('toolClose');
-
-    /* ===== particles ===== */
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
-    resize(); window.addEventListener('resize', resize);
-    const particles = [];
-    for(let i=0;i<80;i++) particles.push({
-      x: Math.random()*canvas.width,
-      y: Math.random()*canvas.height,
-      r: Math.random()*1.6+0.6,
-      vx: (Math.random()-0.5)*0.6,
-      vy: (Math.random()-0.5)*0.6
-    });
-    (function loop(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      for(const p of particles){
-        p.x += p.vx; p.y += p.vy;
-        if(p.x<0||p.x>canvas.width) p.vx *= -1;
-        if(p.y<0||p.y>canvas.height) p.vy *= -1;
-        ctx.fillStyle = 'rgba(123,47,247,0.6)';
-        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
-      }
-      requestAnimationFrame(loop);
-    })();
-
-    /* ===== dark/light ===== */
-    modeBtn.addEventListener('click', ()=> document.body.classList.toggle('light-mode'));
-
-    /* ===== contact modal ===== */
-    contactBtn.addEventListener('click', ()=> {
-      contactModal.style.display = 'flex';
-      contactModal.setAttribute('aria-hidden','false');
-    });
-    function closeContact(){
-      contactModal.style.display = 'none';
-      contactModal.setAttribute('aria-hidden','true');
-    }
-    contactModal.addEventListener('click', (e)=> { if(e.target===contactModal) closeContact(); });
-
-    /* ===== start experience ===== */
-    startBtn.addEventListener('click', ()=>{
-      try{
-        if(bgMusic.paused){
-          bgMusic.play().catch(()=>{});
-          startBtn.innerText = '⏸ Pause Music';
-          extraButtons.classList.add('show');
-          extraButtons.style.display = 'flex';
-        } else {
-          bgMusic.pause();
-          startBtn.innerText = '🚀 Start Experience';
-        }
-      } catch(e){ console.warn(e); }
-    });
-
-    /* ===== tools list (25) ===== */
-    const TOOLS = [
-      {id:'idea', name:'Idea Generator'},
-      {id:'calc', name:'Calculator'},
-      {id:'notes', name:'Notes (local)'},
-      {id:'todo', name:'To-Do List (local)'},
-      {id:'color', name:'Color Picker'},
-      {id:'imgcompress', name:'Image → Base64'},
-      {id:'unit', name:'Unit Converter'},
-      {id:'qrcode', name:'QR Generator (online)'},
-      {id:'rng', name:'Random Number'},
-      {id:'encrypt', name:'SHA-256 Hash'},
-      {id:'compress', name:'Text Compressor (basic)'},
-      {id:'mp3', name:'MP3 Player (local)'},
-      {id:'dict', name:'Dictionary (offline demo)'},
-      {id:'md', name:'Markdown Preview'},
-      {id:'screenshot', name:'Web Preview (placeholder)'},
-      {id:'gradient', name:'CSS Gradient Maker'},
-      {id:'clock', name:'Live Clock'},
-      {id:'chart', name:'Chart Builder (placeholder)'},
-      {id:'geo', name:'Geo Locator (browser)'},
-      {id:'emailtemp', name:'Email Template'},
-      {id:'password', name:'Password Generator'},
-      {id:'clipboard', name:'Clipboard Manager'},
-      {id:'prompt', name:'AI Prompt Helper (local)'},
-      {id:'filemerge', name:'File Merger (placeholder)'},
-      {id:'datecalc', name:'Date Calculator'}
-    ];
-
-    // build grid
-    toolsGrid.innerHTML = '';
-    TOOLS.forEach(t=>{
-      const el = document.createElement('div');
-      el.className = 'tool-card';
-      el.textContent = '🔧 ' + t.name;
-      el.dataset.id = t.id;
-      el.addEventListener('click', ()=> openTool(t.id, t.name));
-      toolsGrid.appendChild(el);
-    });
-
-    // toggle toolsBox
-    toolsBtn.addEventListener('click', ()=>{
-      const shown = toolsBox.style.display === 'block';
-      toolsBox.style.display = shown ? 'none' : 'block';
-    });
-
-    /* popup open/close */
-    function openTool(id,name){
-      if(!extraButtons.classList.contains('show')){
-        alert('Click "Start Experience" first to unlock tools.');
-        return;
-      }
-      toolTitle.innerText = name;
-      toolBody.innerHTML = '<div style="opacity:.7">Loading...</div>';
-      toolPopup.style.display = 'flex';
-      toolPopup.setAttribute('aria-hidden','false');
-      setTimeout(()=> renderTool(id), 80);
-    }
-    function closeTool(){ toolPopup.style.display = 'none'; toolPopup.setAttribute('aria-hidden','true'); }
-    toolClose.addEventListener('click', closeTool);
-    toolPopup.addEventListener('click', (e)=> { if(e.target === toolPopup) closeTool(); });
-    document.addEventListener('keydown', (e)=> { if(e.key==='Escape') closeTool(); });
-
-    /* small helpers */
-    function createRow(innerHTML=''){ const d=document.createElement('div'); d.className='row'; d.style.marginTop='10px'; d.innerHTML=innerHTML; return d; }
-    Array.prototype.rand = function(){ return this[Math.floor(Math.random()*this.length)]; };
-
-    /* ========== Tools implementations ========== */
-
-    /* 1 Idea Generator */
-    function renderIdea(){
-      toolBody.innerHTML = '';
-      const out = document.createElement('div'); out.id='ideaOut'; out.style.minHeight='60px'; out.style.padding='8px'; out.style.background='rgba(255,255,255,0.02)'; out.style.borderRadius='8px'; out.innerText='Press Generate to get an idea.';
-      const gen = document.createElement('button'); gen.className='smallBtn'; gen.innerText='Generate Idea';
-      const copy = document.createElement('button'); copy.className='smallBtn ghost'; copy.innerText='Copy';
-      gen.onclick = ()=> {
-        const themes=["mobile app","micro-SaaS","AI assistant","niche marketplace","developer utility","education game"];
-        const mods=["for creators","for students","for remote teams","with offline mode","with realtime sync","with templates"];
-        const feats=["analytics dashboard","one-click export","smart suggestions","voice commands","image sharing"];
-        out.innerText = `A ${themes.rand()} ${mods.rand()} that includes ${feats.rand()}.`;
-      };
-      copy.onclick = ()=> navigator.clipboard?.writeText(out.innerText||'').then(()=> alert('Copied'));
-      const row = createRow(); row.appendChild(gen); row.appendChild(copy);
-      toolBody.appendChild(out); toolBody.appendChild(row);
-    }
-
-    /* 2 Calculator */
-    function renderCalc(){
-      toolBody.innerHTML = '';
-      const input = document.createElement('input'); input.className='input'; input.placeholder='e.g. (12+8)/4 * 3';
-      const run = document.createElement('button'); run.className='smallBtn'; run.innerText='Calculate';
-      const out = document.createElement('div'); out.style.marginTop='8px';
-      run.onclick = ()=> { try{ const r = Function('"use strict";return ('+input.value+')')(); out.innerText = '= ' + r; }catch{ out.innerText='Error'; } };
-      toolBody.appendChild(input); toolBody.appendChild(createRow(run.outerHTML)); toolBody.appendChild(out);
-      toolBody.querySelector('.smallBtn').onclick = run.onclick;
-    }
-
-    /* 3 Notes (localStorage) */
-    function renderNotes(){
-      toolBody.innerHTML = '';
-      const ta = document.createElement('textarea'); ta.className='input'; ta.style.height='140px'; ta.placeholder='Write notes...';
-      const save = document.createElement('button'); save.className='smallBtn'; save.innerText='Save';
-      const load = document.createElement('button'); load.className='smallBtn ghost'; load.innerText='Load';
-      const msg = document.createElement('div'); msg.style.marginTop='8px';
-      save.onclick = ()=> { localStorage.setItem('cyberx_notes', ta.value); msg.innerText='Saved'; };
-      load.onclick = ()=> { ta.value = localStorage.getItem('cyberx_notes') || ''; msg.innerText='Loaded'; };
-      toolBody.appendChild(ta); toolBody.appendChild(createRow(save.outerHTML + load.outerHTML)); toolBody.appendChild(msg);
-      const btns = toolBody.querySelectorAll('.smallBtn'); btns[0].onclick = save.onclick; btns[1].onclick = load.onclick;
-    }
-
-    /* 4 Todo */
-    function renderTodo(){
-      toolBody.innerHTML = '';
-      const input = document.createElement('input'); input.className='input'; input.placeholder='New task';
-      const add = document.createElement('button'); add.className='smallBtn'; add.innerText='Add';
-      const clear = document.createElement('button'); clear.className='smallBtn ghost'; clear.innerText='Clear';
-      const list = document.createElement('ul'); list.style.textAlign='left'; list.style.marginTop='10px'; list.style.maxHeight='220px'; list.style.overflow='auto';
-      function loadList(){ const arr = JSON.parse(localStorage.getItem('cyberx_todo')||'[]'); list.innerHTML=''; arr.forEach((t,i)=>{ const li=document.createElement('li'); li.textContent=t; const del=document.createElement('button'); del.innerText='✕'; del.style.marginLeft='8px'; del.onclick = ()=> { arr.splice(i,1); localStorage.setItem('cyberx_todo',JSON.stringify(arr)); loadList(); }; li.appendChild(del); list.appendChild(li); }); }
-      add.onclick = ()=> { const v = input.value.trim(); if(!v) return; const arr = JSON.parse(localStorage.getItem('cyberx_todo')||'[]'); arr.push(v); localStorage.setItem('cyberx_todo',JSON.stringify(arr)); input.value=''; loadList(); };
-      clear.onclick = ()=> { localStorage.removeItem('cyberx_todo'); loadList(); };
-      toolBody.appendChild(input); toolBody.appendChild(createRow(add.outerHTML + clear.outerHTML)); toolBody.appendChild(list);
-      const btns = toolBody.querySelectorAll('.smallBtn'); btns[0].onclick = add.onclick; btns[1].onclick = clear.onclick;
-      loadList();
-    }
-
-    /* 5 Color Picker */
-    function renderColor(){
-      toolBody.innerHTML = '';
-      const inp = document.createElement('input'); inp.type='color'; inp.value='#7b2ff7';
-      const out = document.createElement('div'); out.style.marginTop='10px';
-      inp.oninput = ()=> out.innerText = inp.value;
-      toolBody.appendChild(inp); toolBody.appendChild(out); out.innerText = inp.value;
-    }
-
-    /* 6 Image -> Base64 (viewer) */
-    function renderImgToBase64(){
-      toolBody.innerHTML = '';
-      const file = document.createElement('input'); file.type='file'; file.accept='image/*';
-      const conv = document.createElement('button'); conv.className='smallBtn'; conv.innerText='Convert';
-      const out = document.createElement('div'); out.style.marginTop='8px';
-      conv.onclick = ()=> {
-        const f = file.files[0]; if(!f) return alert('Select image');
-        const fr = new FileReader();
-        fr.onload = e => { const data = e.target.result; out.innerText = data.slice(0,200)+'...'; const im = document.createElement('img'); im.src=data; im.style.maxWidth='160px'; im.style.display='block'; im.style.marginTop='8px'; out.appendChild(im); };
-        fr.readAsDataURL(f);
-      };
-      toolBody.appendChild(file); toolBody.appendChild(createRow(conv.outerHTML)); toolBody.appendChild(out);
-      toolBody.querySelector('.smallBtn').onclick = conv.onclick;
-    }
-
-    /* 7 Unit Converter */
-    function renderUnit(){
-      toolBody.innerHTML = '';
-      const sel = document.createElement('select'); sel.className='input';
-      sel.innerHTML = '<option value="mft">Meters ↔ Feet</option><option value="kglb">Kg ↔ Lb</option>';
-      const val = document.createElement('input'); val.className='input'; val.placeholder='Value';
-      const fwd = document.createElement('button'); fwd.className='smallBtn'; fwd.innerText='Convert →';
-      const back = document.createElement('button'); back.className='smallBtn ghost'; back.innerText='Convert ←';
-      const out = document.createElement('div');
-      function conv(dir){
-        const v = Number(val.value); if(isNaN(v)) return out.innerText='Enter number';
-        if(sel.value==='mft') out.innerText = dir==='f' ? (v*3.28084).toFixed(4)+' ft' : (v/3.28084).toFixed(4)+' m';
-        else out.innerText = dir==='f' ? (v*2.20462).toFixed(4)+' lb' : (v/2.20462).toFixed(4)+' kg';
-      }
-      toolBody.appendChild(sel); toolBody.appendChild(val); toolBody.appendChild(createRow(fwd.outerHTML + back.outerHTML)); toolBody.appendChild(out);
-      const btns = toolBody.querySelectorAll('.smallBtn'); btns[0].onclick = ()=> conv('f'); btns[1].onclick = ()=> conv('b');
-    }
-
-    /* 8 QR Generator (image from api) */
-    function renderQR(){
-      toolBody.innerHTML = '';
-      const input = document.createElement('input'); input.className='input'; input.placeholder='Text or URL';
-      const gen = document.createElement('button'); gen.className='smallBtn'; gen.innerText='Generate';
-      const out = document.createElement('div'); out.style.marginTop='8px';
-      gen.onclick = ()=> {
-        const v = input.value.trim();
-        if(!v) { out.innerText='Enter text'; return; }
-        // Uses public API (requires internet). On offline, show message.
-        const url = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data='+encodeURIComponent(v);
-        out.innerHTML = `<img src="${url}" alt="QR">`;
-      };
-      toolBody.appendChild(input); toolBody.appendChild(createRow(gen.outerHTML)); toolBody.appendChild(out);
-      toolBody.querySelector('.smallBtn').onclick = gen.onclick;
-    }
-
-    /* 9 RNG */
-    function renderRng(){
-      toolBody.innerHTML = '';
-      const min = document.createElement('input'); min.className='input'; min.placeholder='Min (0)';
-      const max = document.createElement('input'); max.className='input'; max.placeholder='Max (100)';
-      const gen = document.createElement('button'); gen.className='smallBtn'; gen.innerText='Generate';
-      const out = document.createElement('div');
-      gen.onclick = ()=> { const a=Number(min.value)||0, b=Number(max.value)||100; out.innerText = Math.floor(Math.random()*(b-a+1))+a; };
-      toolBody.appendChild(min); toolBody.appendChild(max); toolBody.appendChild(createRow(gen.outerHTML)); toolBody.appendChild(out);
-      toolBody.querySelector('.smallBtn').onclick = gen.onclick;
-    }
-
-    /* 10 SHA-256 */
-    async function renderSHA(){
-      toolBody.innerHTML = '';
-      const ta = document.createElement('textarea'); ta.className='input'; ta.style.height='100px';
-      const hashBtn = document.createElement('button'); hashBtn.className='smallBtn'; hashBtn.innerText='Hash (SHA-256)';
-      const out = document.createElement('div'); out.style.marginTop='8px'; out.style.wordBreak='break-all';
-      hashBtn.onclick = async ()=> {
-        const txt = ta.value || '';
-        const buf = new TextEncoder().encode(txt);
-        const digest = await crypto.subtle.digest('SHA-256', buf);
-        const hex = Array.from(new Uint8Array(digest)).map(b=>b.toString(16).padStart(2,'0')).join('');
-        out.innerText = hex;
-      };
-      toolBody.appendChild(ta); toolBody.appendChild(createRow(hashBtn.outerHTML)); toolBody.appendChild(out);
-      toolBody.querySelector('.smallBtn').onclick = hashBtn.onclick;
-    }
-
-    /* 11 Text Compressor (very basic) */
-    function renderCompress(){
-      toolBody.innerHTML = '';
-      const ta = document.createElement('textarea'); ta.className='input'; ta.style.height='120px';
-      const btn = document.createElement('button'); btn.className='smallBtn'; btn.innerText='Compress (simple run-length)';
-      const out = document.createElement('div'); out.style.marginTop='8px';
-      btn.onclick = ()=> {
-        const s = ta.value||'';
-        let res=''; let i=0;
-        while(i<s.length){ let j=i+1; while(j<s.length && s[j]===s[i]) j++; res += s[i] + (j-i); i=j; }
-        out.innerText = res;
-      };
-      toolBody.appendChild(ta); toolBody.appendChild(createRow(btn.outerHTML)); toolBody.appendChild(out);
-      toolBody.querySelector('.smallBtn').onclick = btn.onclick;
-    }
-
-    /* 12 MP3 Player (play selected file) */
-    function renderMP3(){
-      toolBody.innerHTML = '';
-      const file = document.createElement('input'); file.type='file'; file.accept='audio/*';
-      const play = document.createElement('button'); play.className='smallBtn'; play.innerText='Play';
-      const stop = document.createElement('button'); stop.className='smallBtn ghost'; stop.innerText='Stop';
-      const audio = document.createElement('audio'); audio.controls = true; audio.style.marginTop='8px';
-      play.onclick = ()=> { const f = file.files[0]; if(!f) return alert('Select audio file'); audio.src = URL.createObjectURL(f); audio.play(); };
-      stop.onclick = ()=> { audio.pause(); audio.currentTime = 0; };
-      toolBody.appendChild(file); toolBody.appendChild(createRow(play.outerHTML + stop.outerHTML)); toolBody.appendChild(audio);
-      const btns = toolBody.querySelectorAll('.smallBtn'); btns[0].onclick = play.onclick; btns[1].onclick = stop.onclick;
-    }
-
-    /* 13 Dictionary (offline demo: simple definitions) */
-    function renderDict(){
-      toolBody.innerHTML = '';
-      const input = document.createElement('input'); input.className='input'; input.placeholder='Enter word (demo)';
-      const go = document.createElement('button'); go.className='smallBtn'; go.innerText='Lookup';
-      const out = document.createElement('div'); out.style.textAlign='left'; out.style.marginTop='8px';
-      const demo = { "apple":"A fruit.", "server":"A computer that provides data."};
-      go.onclick = ()=> { const w = (input.value||'').toLowerCase(); out.innerText = demo[w] || 'Definition not found (demo-only)'; };
-      toolBody.appendChild(input); toolBody.appendChild(createRow(go.outerHTML)); toolBody.appendChild(out);
-      toolBody.querySelector('.smallBtn').onclick = go.onclick;
-    }
-
-    /* 14 Markdown Preview (basic) */
-    function renderMarkdown(){
-      toolBody.innerHTML = '';
-      const ta = document.createElement('textarea'); ta.className='input'; ta.style.height='140px'; ta.placeholder = '# Title';
-      const out = document.createElement('div'); out.style.textAlign='left'; out.style.marginTop='8px';
-      ta.oninput = ()=> {
-        // very small markdown: headings and bold
-        let v = ta.value.replace(/^# (.*$)/gm,'<h2>$1</h2>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
-        out.innerHTML = v;
-      };
-      toolBody.appendChild(ta); toolBody.appendChild(out);
-    }
-
-    /* 15 Web Preview placeholder */
-    function renderPreview(){
-      toolBody.innerHTML = '<p>This is a placeholder for web preview / screenshot functionality (requires online or server).</p>';
-    }
-
-    /* 16 CSS Gradient Maker */
-    function renderGradient(){
-      toolBody.innerHTML = '';
-      const a = document.createElement('input'); a.type='color'; a.value='#7b2ff7';
-      const b = document.createElement('input'); b.type='color'; b.value='#00f0ff';
-      const box = document.createElement('div'); box.style.height='100px'; box.style.borderRadius='8px'; box.style.marginTop='10px';
-      function update(){ box.style.background = `linear-gradient(45deg, ${a.value}, ${b.value})`; }
-      a.oninput = b.oninput = update; update();
-      toolBody.appendChild(a); toolBody.appendChild(b); toolBody.appendChild(box);
-    }
-
-    /* 17 Live Clock */
-    let clkInterval = null;
-    function renderClock(){
-      toolBody.innerHTML = '';
-      const disp = document.createElement('div'); disp.style.fontSize='1.2rem'; disp.style.fontWeight='700';
-      toolBody.appendChild(disp);
-      clearInterval(clkInterval);
-      clkInterval = setInterval(()=> { disp.innerText = new Date().toLocaleString(); }, 500);
-    }
-
-    /* 18 Chart Builder placeholder */
-    function renderChart(){
-      toolBody.innerHTML = '<p>Chart builder placeholder (add chart library if needed).</p>';
-    }
-
-    /* 19 Geo Locator */
-    function renderGeo(){
-      toolBody.innerHTML = '';
-      const out = document.createElement('div'); out.style.marginTop='8px';
-      if(!navigator.geolocation) out.innerText = 'Geolocation not supported';
-      else navigator.geolocation.getCurrentPosition(pos => {
-        out.innerText = `Lat: ${pos.coords.latitude}, Lon: ${pos.coords.longitude}`;
-      }, err => { out.innerText = 'Permission denied or unavailable'; });
-      toolBody.appendChild(out);
-    }
-
-    /* 20 Email Template builder */
-    function renderEmailTemp(){
-      toolBody.innerHTML = '';
-      const to = document.createElement('input'); to.className='input'; to.placeholder='To';
-      const sub = document.createElement('input'); sub.className='input'; sub.placeholder='Subject';
-      const ta = document.createElement('textarea'); ta.className='input'; ta.style.height='120px'; ta.placeholder='Body...';
-      const gen = document.createElement('button'); gen.className='smallBtn'; gen.innerText='Create mailto link';
-      const out = document.createElement('div'); out.style.marginTop='8px';
-      gen.onclick = ()=> { const link = `mailto:${encodeURIComponent(to.value)}?subject=${encodeURIComponent(sub.value)}&body=${encodeURIComponent(ta.value)}`; out.innerHTML = `<a href="${link}">Open email client</a>`; };
-      toolBody.appendChild(to); toolBody.appendChild(sub); toolBody.appendChild(ta); toolBody.appendChild(createRow(gen.outerHTML)); toolBody.appendChild(out);
-      toolBody.querySelector('.smallBtn').onclick = gen.onclick;
-    }
-
-    /* 21 Password Generator */
-    function renderPassword(){
-      toolBody.innerHTML = '';
-      const len = document.createElement('input'); len.type='number'; len.className='input'; len.value=16; len.min=4; len.max=128;
-      const gen = document.createElement('button'); gen.className='smallBtn'; gen.innerText='Generate';
-      const copy = document.createElement('button'); copy.className='smallBtn ghost'; copy.innerText='Copy';
-      const out = document.createElement('div'); out.style.marginTop='8px'; out.style.fontFamily='monospace';
-      gen.onclick = ()=> {
-        const l = Math.max(4, Number(len.value)||16);
-        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
-        let s=''; for(let i=0;i<l;i++) s += chars.charAt(Math.floor(Math.random()*chars.length));
-        out.innerText = s;
-      };
-      copy.onclick = ()=> navigator.clipboard?.writeText(out.innerText||'').then(()=> alert('Copied'));
-      toolBody.appendChild(len); toolBody.appendChild(createRow(gen.outerHTML + copy.outerHTML)); toolBody.appendChild(out);
-      const btns = toolBody.querySelectorAll('.smallBtn'); btns[0].onclick = gen.onclick; btns[1].onclick = copy.onclick;
-    }
-
-    /* 22 Clipboard Manager (copy/paste) */
-    function renderClipboard(){
-      toolBody.innerHTML = '';
-      const ta = document.createElement('textarea'); ta.className='input'; ta.style.height='100px';
-      const copy = document.createElement('button'); copy.className='smallBtn'; copy.innerText='Copy';
-      const paste = document.createElement('button'); paste.className='smallBtn ghost'; paste.innerText='Paste';
-      copy.onclick = ()=> navigator.clipboard?.writeText(ta.value||'').then(()=> alert('Copied'));
-      paste.onclick = async ()=> { try{ ta.value = await navigator.clipboard.readText(); }catch{ alert('Paste not allowed'); } };
-      toolBody.appendChild(ta); toolBody.appendChild(createRow(copy.outerHTML + paste.outerHTML));
-      const btns = toolBody.querySelectorAll('.smallBtn'); btns[0].onclick = copy.onclick; btns[1].onclick = paste.onclick;
-    }
-
-    /* 23 Prompt Helper (local templates) */
-    function renderPrompt(){
-      toolBody.innerHTML = '';
-      const sel = document.createElement('select'); sel.className='input';
-      sel.innerHTML = '<option>Product description</option><option>Blog outline</option><option>Landing page copy</option>';
-      const out = document.createElement('div'); out.style.marginTop='8px';
-      sel.onchange = ()=> {
-        const map = {
-          'Product description':'Write a product description that converts.',
-          'Blog outline':'Create a detailed blog outline with headings.',
-          'Landing page copy':'Short landing page hero + bullets.'
-        };
-        out.innerText = map[sel.value] || '';
-      };
-      toolBody.appendChild(sel); toolBody.appendChild(out);
-    }
-
-    /* 24 File Merger placeholder */
-    function renderFileMerge(){
-      toolBody.innerHTML = '<p>File merge placeholder — implement server or JS libraries if needed.</p>';
-    }
-
-    /* 25 Date Calculator (difference in days) */
-    function renderDateCalc(){
-      toolBody.innerHTML = '';
-      const a = document.createElement('input'); a.type='date'; a.className='input';
-      const b = document.createElement('input'); b.type='date'; b.className='input';
-      const calc = document.createElement('button'); calc.className='smallBtn'; calc.innerText='Days between';
-      const out = document.createElement('div'); out.style.marginTop='8px';
-      calc.onclick = ()=> {
-        if(!a.value||!b.value) return out.innerText='Select both dates';
-        const d = Math.abs(new Date(a.value) - new Date(b.value));
-        out.innerText = Math.floor(d/86400000) + ' days';
-      };
-      toolBody.appendChild(a); toolBody.appendChild(b); toolBody.appendChild(createRow(calc.outerHTML)); toolBody.appendChild(out);
-      toolBody.querySelector('.smallBtn').onclick = calc.onclick;
-    }
-
-    /* router */
-    function renderTool(id){
-      toolBody.innerHTML = '';
-      switch(id){
-        case 'idea': renderIdea(); break;
-        case 'calc': renderCalc(); break;
-        case 'notes': renderNotes(); break;
-        case 'todo': renderTodo(); break;
-        case 'color': renderColor(); break;
-        case 'imgcompress': renderImgToBase64(); break;
-        case 'unit': renderUnit(); break;
-        case 'qrcode': renderQR(); break;
-        case 'rng': renderRng(); break;
-        case 'encrypt': renderSHA(); break;
-        case 'compress': renderCompress(); break;
-        case 'mp3': renderMP3(); break;
-        case 'dict': renderDict(); break;
-        case 'md': renderMarkdown(); break;
-        case 'screenshot': renderPreview(); break;
-        case 'gradient': renderGradient(); break;
-        case 'clock': renderClock(); break;
-        case 'chart': renderChart(); break;
-        case 'geo': renderGeo(); break;
-        case 'emailtemp': renderEmailTemp(); break;
-        case 'password': renderPassword(); break;
-        case 'clipboard': renderClipboard(); break;
-        case 'prompt': renderPrompt(); break;
-        case 'filemerge': renderFileMerge(); break;
-        case 'datecalc': renderDateCalc(); break;
-        default: toolBody.innerText = 'Tool not found';
-      }
-    }
-
-    /* expose openTool used by cards */
-    window.openTool = openTool; // not necessary but handy in console
-
-    /* clean initial state */
-    toolsBox.style.display = 'none';
-    toolPopup.style.display = 'none';
-    contactModal.style.display = 'none';
-    extraButtons.style.display = 'none';
-  });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
