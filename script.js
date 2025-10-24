@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CyberX — Nexty (Pro)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap">
+<style>
+/* --- Core styles (kept concise) --- */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,Arial,sans-serif;background:radial-gradient(circle at center,#2b0047,#000010);color:#fff;min-height:100vh;overflow-x:hidden}
+.container{max-width:1100px;margin:0 auto;padding:36px 18px}
+h1{font-family:Orbitron, sans-serif;font-size:2.8rem;text-shadow:0 0 20px #7b2ff7}
+.lead{color:#dcd6ff;margin-top:8px}
+.top-buttons{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:18px}
+.btn{background:linear-gradient(45deg,#7b2ff7,#00f0ff);border:none;color:#fff;padding:12px 18px;border-radius:28px;cursor:pointer;font-weight:700;box-shadow:0 8px 30px rgba(123,47,247,0.15);transition:transform .25s}
+.btn:active{transform:translateY(1px)}
+.tagline{font-family:Orbitron, sans-serif;margin-top:28px;color:#ccc;text-align:center}
+.extra-buttons{display:none;flex-direction:column;gap:12px;align-items:center;margin-top:18px}
+.extra-buttons.show{display:flex}
+.glow{animation:glow 3s ease-in-out infinite}
+@keyframes glow{0%{box-shadow:0 0 8px #00f0ff}50%{box-shadow:0 0 28px #7b2ff7}100%{box-shadow:0 0 8px #00f0ff}}
+#toolsBox{display:none;margin:22px auto;padding:18px;border-radius:12px;background:rgba(255,255,255,0.04)}
+#toolsBox.show{display:block}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.tool{background:linear-gradient(135deg,#7b2ff7,#00f0ff);padding:12px;border-radius:12px;text-align:center;font-weight:700;cursor:pointer}
+.modal-backdrop{position:fixed;inset:0;display:none;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;z-index:999;padding:12px}
+.modal{background:#0f0f17;padding:18px;border-radius:12px;max-width:920px;width:100%;color:#fff}
+.modal h3{font-family:Orbitron, sans-serif;margin-bottom:10px}
+.input,textarea,select{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff}
+textarea{min-height:100px}
+.preview{background:rgba(255,255,255,0.03);padding:10px;border-radius:8px;margin-top:10px}
+.small{font-size:0.9rem;color:#cfcafc;margin-bottom:8px}
+.footer{margin-top:26px;text-align:center;color:#bfb6ff;font-size:0.9rem}
+canvas#particles{position:fixed;inset:0;z-index:-1}
+.toggle-mode{position:fixed;top:14px;right:80px;border-radius:18px;padding:8px 12px;border:none;background:#fff;color:#000;z-index:1000}
+#visitorBox{position:fixed;top:14px;left:14px;background:rgba(0,0,0,0.5);padding:8px 10px;border-radius:10px;color:#00f0ff;z-index:1000}
+@media(min-width:800px){.top-buttons{gap:18px}}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<button class="toggle-mode" onclick="document.body.classList.toggle('light-mode')">🌙 Mode</button>
+<div id="visitorBox">👁 Visitors: <span id="visitorCount">--</span></div>
+
+<main class="container">
+  <h1>💻 CyberX ⚡</h1>
+  <div class="lead">All 25 pro tools — desktop/server-ready version.</div>
+
+  <div class="top-buttons" id="topButtons">
+    <button class="btn" onclick="showContact()">📩 Contact</button>
+    <button id="startBtn" class="btn">🚀 Start Experience</button>
+  </div>
+
+  <div class="tagline">Nexty — Where Innovation Meets Imagination.</div>
+
+  <div class="extra-buttons" id="extraButtons">
+    <button class="btn glow" id="toolsBtn">🧰 Tools</button>
+    <button class="btn glow" onclick="openComing('Coming Soon 1')">🔜 Coming Soon 1</button>
+    <button class="btn glow" onclick="openComing('Coming Soon 2')">🔜 Coming Soon 2</button>
+  </div>
+
+  <div id="toolsBox">
+    <h3 style="margin:6px 0">Toolbox</h3>
+    <div class="tool-grid" id="toolGrid">
+      <!-- tools injected by script.js -->
+    </div>
+  </div>
+
+  <div class="footer">✨ Built by Nexty — The Future Starts Here ⚡</div>
+</main>
+
+<!-- Contact Modal -->
+<div id="contactModal" class="modal-backdrop">
+  <div class="modal">
+    <h3>Contact</h3>
+    <p class="small">Reach out via email or WhatsApp.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn" onclick="window.location='mailto:imsyber4@gmail.com'">📧 Email</button>
+      <button class="btn" onclick="window.open('https://wa.me/923192084504?text=Hi%20I%20want%20to%20discuss%20a%20website')">💬 WhatsApp</button>
+      <button class="btn" onclick="closeContact()">❌ Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Tool Modal -->
+<div id="toolModal" class="modal-backdrop">
+  <div class="modal" id="toolModalContent">
+    <h3 id="toolTitle">Tool</h3>
+    <div id="toolInner"></div>
+    <div style="margin-top:12px;text-align:right"><button class="btn" onclick="closeModal()">❌ Close</button></div>
+  </div>
+</div>
+
+<audio id="bgMusic" loop><source src="music/music_anna_ansak.mp3" type="audio/mpeg"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
