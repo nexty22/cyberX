@@ -4,94 +4,56 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CyberX — Nexty (25 Tools)</title>
-
-<!-- Fonts and Styles -->
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{
   font-family:'Inter',sans-serif;
   background:radial-gradient(circle at center,#2b0047,#000010);
-  color:#fff;
-  text-align:center;
+  color:#fff;text-align:center;
   overflow-x:hidden;
-  transition:.5s;
 }
 canvas{position:fixed;inset:0;z-index:-1;display:block}
-
-/* Container */
 .container{max-width:1000px;margin:0 auto;padding:40px 20px}
 h1{font-family:'Orbitron',sans-serif;font-size:3rem;text-shadow:0 0 20px #7b2ff7}
 p.lead{margin-top:10px;color:#dcd6ff;font-size:1.15rem}
 
-/* Top Buttons */
-.top-buttons{
-  margin-top:50px;
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  align-items:center;
-}
+/* Buttons */
+.top-buttons{margin-top:40px;display:flex;justify-content:center;gap:18px;align-items:center}
 .btn{
   background:linear-gradient(45deg,#7b2ff7,#00f0ff);
   border:none;color:#fff;
-  padding:14px 22px;
-  border-radius:30px;
-  cursor:pointer;
-  font-weight:600;
-  font-size:1rem;
-  transition:transform .4s,box-shadow .4s;
+  padding:14px 22px;border-radius:30px;
+  cursor:pointer;font-weight:600;font-size:1rem;
+  transition:transform .35s,box-shadow .35s;
   box-shadow:0 0 18px #7b2ff7;
   animation:float 3s ease-in-out infinite;
 }
-.btn:hover{transform:translateY(-6px) scale(1.05);box-shadow:0 0 30px #00f0ff}
-@keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-6px);}
-}
+.btn:hover{transform:translateY(-6px) scale(1.05);box-shadow:0 0 28px #00f0ff}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
-/* Extra Buttons */
-.extra-buttons{
-  display:none;
-  flex-direction:column;
-  gap:12px;
-  align-items:center;
-  margin-top:40px;
-  animation:fadeIn 1s ease-in-out;
-}
-.extra-buttons.show{display:flex;}
+/* Extra buttons under "Nexty" */
+.extra-buttons{display:none;flex-direction:column;gap:12px;align-items:center;margin-top:35px}
+.extra-buttons.show{display:flex;animation:fadeIn 1s ease-in-out}
 @keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
 
-/* Tools Box */
+/* Toolbox */
 #toolsBox{
-  display:none;
-  margin:40px auto;
-  max-width:900px;
-  padding:20px;
-  border-radius:15px;
+  display:none;margin:40px auto;max-width:900px;
+  padding:20px;border-radius:15px;
   background:rgba(255,255,255,0.07);
   box-shadow:0 0 25px rgba(123,47,247,0.4);
+  animation:fadeIn .8s ease-in-out;
 }
-#toolsBox.show{display:block;animation:fadeIn 1s}
-.tool-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:15px;
-}
+#toolsBox.show{display:block}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:15px}
 .tool{
   background:linear-gradient(135deg,#7b2ff7,#00f0ff);
-  padding:12px;
-  border-radius:12px;
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
-  transition:.3s;
-  box-shadow:0 0 10px #00f0ff;
-  min-height:56px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+  padding:12px;border-radius:12px;
+  color:#fff;font-weight:600;
+  cursor:pointer;box-shadow:0 0 10px #00f0ff;
+  transition:.3s;min-height:56px;
+  display:flex;align-items:center;justify-content:center;text-align:center;
 }
 .tool:hover{transform:scale(1.05);box-shadow:0 0 25px #00f0ff}
 
@@ -107,42 +69,36 @@ p.lead{margin-top:10px;color:#dcd6ff;font-size:1.15rem}
   max-width:420px;box-shadow:0 0 20px #7b2ff7;
   color:#fff;text-align:center;
 }
-.modal h3{font-family:'Orbitron',sans-serif;margin-bottom:10px}
 .modal-btn{
-  margin:6px 0;padding:10px 14px;
-  border:none;border-radius:10px;
-  cursor:pointer;
-  background:linear-gradient(45deg,#7b2ff7,#00f0ff);
+  margin:6px 0;padding:10px 14px;border:none;border-radius:10px;
+  cursor:pointer;background:linear-gradient(45deg,#7b2ff7,#00f0ff);
   color:#fff;font-weight:600;
 }
 .footer-note{margin-top:50px;font-size:.9rem;opacity:.7;text-shadow:0 0 5px #7b2ff7;}
 #visitorBox{
-  position:fixed;top:15px;right:15px;
-  z-index:999;background:rgba(0,0,0,0.6);
-  padding:8px 14px;border-radius:10px;
+  position:fixed;top:15px;right:15px;z-index:999;
+  background:rgba(0,0,0,0.6);padding:8px 14px;border-radius:10px;
   box-shadow:0 0 12px #7b2ff7;
-  font-family:'Orbitron',sans-serif;
-  font-size:.9rem;color:#00f0ff;
+  font-family:'Orbitron',sans-serif;font-size:.9rem;color:#00f0ff;
   text-shadow:0 0 6px #7b2ff7;
 }
 </style>
 </head>
 <body>
-
-<!-- Particles -->
 <canvas id="particles"></canvas>
-
-<!-- Visitor Counter -->
 <div id="visitorBox">👁 Visitors: <span id="visitorCount">--</span></div>
 
-<!-- Main Content -->
 <main class="container">
   <h1>💻 CyberX ⚡</h1>
-  <p class="lead">All 25 Tools — fully functional.</p>
+  <p class="lead">All 25 tools — fully functional. Click any tool to open it here.</p>
 
   <div class="top-buttons">
     <button class="btn" onclick="showContact()">📩 Contact</button>
     <button id="startBtn" class="btn">🚀 Start Experience</button>
+  </div>
+
+  <div class="tagline" style="margin-top:30px;font-family:'Orbitron',sans-serif;font-size:1.1rem;color:#ccc;text-shadow:0 0 10px #7b2ff7;">
+    Nexty — Where Innovation Meets Imagination.
   </div>
 
   <div class="extra-buttons" id="extraButtons">
@@ -152,14 +108,14 @@ p.lead{margin-top:10px;color:#dcd6ff;font-size:1.15rem}
   </div>
 
   <div id="toolsBox">
-    <h3>Toolbox</h3>
+    <h3 style="font-family:'Orbitron',sans-serif;">Toolbox</h3>
     <div class="tool-grid" id="toolGrid"></div>
+    <button class="modal-btn" style="margin-top:15px" onclick="closeTools()">❌ Close Toolbox</button>
   </div>
 </main>
 
 <div class="footer-note">✨ Built by Nexty — The Future Starts Here ⚡</div>
 
-<!-- Audio -->
 <audio id="bgMusic" loop>
   <source src="music/music_anna_ansak.mp3" type="audio/mpeg">
 </audio>
@@ -185,7 +141,6 @@ p.lead{margin-top:10px;color:#dcd6ff;font-size:1.15rem}
   </div>
 </div>
 
-<!-- JS -->
 <script src="script.js"></script>
 </body>
 </html>
