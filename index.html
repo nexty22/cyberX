@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CyberX — Nexty Here ⚡</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',sans-serif;
+  background:radial-gradient(circle at center,#2b0047,#000010);
+  color:#fff;text-align:center;
+  overflow-x:hidden;overflow-y:auto;
+  min-height:100vh;
+}
+canvas{position:fixed;inset:0;z-index:-1;display:block}
+.container{max-width:1000px;margin:0 auto;padding:40px 20px}
+h1{font-family:'Orbitron',sans-serif;font-size:3rem;text-shadow:0 0 20px #7b2ff7}
+p.lead{margin-top:10px;color:#dcd6ff;font-size:1.1rem}
+.tagline{margin:30px auto 10px;font-family:'Orbitron',sans-serif;font-size:1.1rem;color:#ccc;text-shadow:0 0 8px #7b2ff7}
+.footer-note{margin-top:40px;font-size:0.9rem;opacity:0.7}
+
+.btn{
+  background:linear-gradient(45deg,#7b2ff7,#00f0ff);
+  border:none;color:#fff;padding:14px 22px;border-radius:30px;
+  cursor:pointer;font-weight:600;transition:.4s;
+  display:inline-flex;align-items:center;gap:6px;
+  box-shadow:0 0 15px #7b2ff7;
+  animation:floating 3s ease-in-out infinite;
+}
+.btn:hover{transform:scale(1.08);box-shadow:0 0 25px #00f0ff}
+@keyframes floating{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+
+.top-buttons{display:flex;flex-direction:column;gap:14px;align-items:center;margin-top:30px}
+.extra-buttons{display:none;flex-direction:column;gap:12px;align-items:center;margin-top:30px}
+.extra-buttons.show{display:flex;animation:fadeIn 1s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+#toolsBox{
+  display:none;margin:30px auto;max-width:900px;padding:20px;border-radius:15px;
+  background:rgba(255,255,255,0.07);box-shadow:0 0 25px rgba(123,47,247,0.4)
+}
+#toolsBox.show{display:block;animation:fadeIn 1s ease}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:15px}
+.tool{
+  background:linear-gradient(135deg,#7b2ff7,#00f0ff);
+  padding:12px;border-radius:12px;color:#fff;font-weight:600;
+  cursor:pointer;transition:.3s;box-shadow:0 0 10px #00f0ff;
+  min-height:56px;display:flex;align-items:center;justify-content:center;
+}
+.tool:hover{transform:scale(1.05);box-shadow:0 0 25px #00f0ff}
+
+/* Modals */
+.modal-backdrop{
+  position:fixed;inset:0;display:none;background:rgba(0,0,0,0.85);
+  align-items:center;justify-content:center;z-index:1000;padding:20px;overflow:auto;
+}
+.modal{
+  background:#0f0f17;padding:20px;border-radius:12px;max-width:820px;
+  box-shadow:0 0 20px #7b2ff7;text-align:left;color:#fff;
+}
+.modal h3{font-family:'Orbitron',sans-serif;margin-bottom:6px}
+.modal .actions{display:flex;gap:8px;margin-top:12px;justify-content:flex-end}
+.modal-btn{
+  padding:8px 14px;border:none;border-radius:10px;
+  background:linear-gradient(45deg,#7b2ff7,#00f0ff);
+  color:#fff;font-weight:600;cursor:pointer;transition:.3s;
+}
+.modal-btn:hover{transform:scale(1.05)}
+.input,textarea,select{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:#fff}
+textarea{height:100px}
+.preview-box{background:rgba(255,255,255,0.05);padding:10px;border-radius:8px;margin-top:8px}
+
+/* Floating mode + visitors */
+.toggle-mode{
+  position:fixed;top:15px;right:60px;border:none;border-radius:20px;
+  padding:10px 14px;cursor:pointer;background:#fff;color:#000;font-weight:600
+}
+#visitorBox{
+  position:fixed;top:15px;right:15px;z-index:999;
+  background:rgba(0,0,0,0.6);padding:8px 14px;border-radius:10px;
+  box-shadow:0 0 12px #7b2ff7;font-family:'Orbitron',sans-serif;
+  font-size:0.9rem;color:#00f0ff;text-shadow:0 0 6px #7b2ff7
+}
+</style>
+</head>
+
+<body>
+<canvas id="particles"></canvas>
+<div id="visitorBox">👁 Visitors: <span id="visitorCount">--</span></div>
+<button class="toggle-mode" onclick="document.body.classList.toggle('light-mode')">🌙 Mode</button>
+
+<main class="container">
+  <h1>💻 CyberX ⚡</h1>
+  <h2 style="font-family:'Orbitron',sans-serif;font-size:1.4rem;color:#00f0ff;margin-top:8px;">Nexty Here</h2>
+  <p class="lead">All 25 tools — fully functional. Click any tool to open it here.</p>
+
+  <div class="top-buttons">
+    <button class="btn" onclick="showContact()">📩 Contact</button>
+    <button id="startBtn" class="btn">🚀 Start Experience</button>
+  </div>
+
+  <div class="tagline">Nexty — Where Innovation Meets Imagination.</div>
+
+  <div class="extra-buttons" id="extraButtons">
+    <button class="btn" id="toolsBtn">🧰 Tools</button>
+    <button class="btn" onclick="openComing('Coming Soon 1')">🔜 Coming Soon 1</button>
+    <button class="btn" onclick="openComing('Coming Soon 2')">🔜 Coming Soon 2</button>
+  </div>
+
+  <div id="toolsBox">
+    <h3>Toolbox</h3>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+</main>
+
+<div class="footer-note">✨ Built by Nexty — The Future Starts Here ⚡</div>
+
+<audio id="bgMusic">
+  <source src="music/music_anna_ansak.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Contact Modal -->
+<div id="contactModal" class="modal-backdrop">
+  <div class="modal">
+    <h3>Contact Me</h3>
+    <button class="modal-btn" onclick="window.location='mailto:imsyber4@gmail.com'">📧 Email</button>
+    <button class="modal-btn" onclick="window.open('https://wa.me/923192084504?text=Hi,%20I%20want%20to%20discuss%20a%20website.')">💬 WhatsApp</button>
+    <button class="modal-btn" onclick="closeContact()">❌ Close</button>
+  </div>
+</div>
+
+<!-- Tool Modal -->
+<div id="toolModal" class="modal-backdrop">
+  <div class="modal" id="toolModalContent">
+    <h3 id="toolTitle">Tool</h3>
+    <div id="toolInner"></div>
+    <div class="actions">
+      <button class="modal-btn" onclick="closeModal()">❌ Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
