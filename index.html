@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CyberX — Nexty Here ⚡</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background:radial-gradient(circle at center,#2b0047 0%, #000010 80%);
+      color:#fff;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* canvas background */
+    canvas#particles{position:fixed;inset:0;z-index:-1;display:block}
+
+    /* container */
+    .container{max-width:1000px;margin:0 auto;padding:36px 20px;text-align:center}
+    h1{font-family:Orbitron, sans-serif;font-size:3rem;margin-top:36px;text-shadow:0 0 20px #7b2ff7}
+    h2{font-family:Orbitron, sans-serif;font-size:1.05rem;color:#d6cfff;margin-top:6px}
+    p.lead{color:#dcd6ff;margin-top:10px;font-size:1.05rem}
+
+    /* buttons */
+    .btn{
+      background:linear-gradient(45deg,#7b2ff7,#00f0ff);
+      border:none;color:#fff;padding:12px 20px;border-radius:28px;
+      font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+      box-shadow:0 8px 30px rgba(123,47,247,0.18);
+      transition:transform .35s,box-shadow .35s,opacity .35s;
+      user-select:none;
+    }
+    .btn:active{transform:translateY(2px)}
+    .btn--floating{animation:floaty 3s ease-in-out infinite}
+    @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+
+    .top-buttons{margin-top:30px;display:flex;flex-direction:column;gap:14px;align-items:center}
+
+    .extra-buttons{display:none;flex-direction:column;gap:12px;align-items:center;margin-top:22px}
+    .extra-buttons.show{display:flex;animation:fadeIn .6s ease}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+    /* tools box + slow-motion open */
+    #toolsBox{
+      display:none;margin:26px auto;max-width:920px;padding:18px;border-radius:14px;
+      background:rgba(255,255,255,0.04);backdrop-filter:blur(6px);
+      box-shadow:0 10px 40px rgba(0,0,0,0.6);
+      transform-origin:top center;
+      transition:transform .75s cubic-bezier(.2,.8,.2,1),opacity .45s;
+      opacity:0; transform:scale(.96) translateY(-6px);
+    }
+    #toolsBox.show{display:block;opacity:1;transform:scale(1) translateY(0)}
+
+    .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:12px}
+    .tool{
+      background:linear-gradient(135deg,#7b2ff7,#00f0ff);
+      padding:12px;border-radius:12px;color:#fff;font-weight:700;
+      cursor:pointer;min-height:56px;display:flex;align-items:center;justify-content:center;text-align:center;
+      transition:transform .25s,box-shadow .25s;
+    }
+    .tool:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 10px 30px rgba(0,240,255,0.08)}
+
+    /* modal */
+    .modal-backdrop{position:fixed;inset:0;display:none;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;z-index:1000;padding:18px;overflow:auto}
+    .modal{background:#0f0f17;padding:18px;border-radius:12px;max-width:880px;box-shadow:0 0 30px #7b2ff7;color:#fff;text-align:left}
+    .modal h3{font-family:Orbitron, sans-serif;margin-bottom:8px}
+    .modal .actions{display:flex;gap:8px;margin-top:12px;justify-content:flex-end}
+    .modal-btn{padding:8px 12px;border-radius:8px;border:none;background:linear-gradient(45deg,#7b2ff7,#00f0ff);color:#fff;cursor:pointer}
+
+    .input,textarea,select{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;margin-top:8px}
+    textarea{min-height:100px}
+    .preview-box{background:rgba(255,255,255,0.03);padding:10px;border-radius:8px;margin-top:8px}
+
+    .footer-note{margin-top:36px;font-size:.9rem;opacity:.75}
+    #visitorBox{position:fixed;top:14px;right:14px;z-index:999;background:rgba(0,0,0,0.5);padding:8px 12px;border-radius:10px;box-shadow:0 0 12px #7b2ff7;font-family:Orbitron, sans-serif;font-size:.9rem;color:#00f0ff}
+
+    /* responsive tweaks */
+    @media(max-width:640px){
+      h1{font-size:2rem}
+      .tool-grid{grid-template-columns:repeat(2,1fr)}
+      .container{padding:20px 14px}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particles"></canvas>
+  <div id="visitorBox">👁 Visitors: <span id="visitorCount">--</span></div>
+
+  <main class="container">
+    <h1>💻 CyberX ⚡</h1>
+    <h2>Nexty Here</h2>
+    <p class="lead">All 25 tools — fully functional. Click any tool to open it here.</p>
+
+    <div class="top-buttons">
+      <button class="btn btn--floating" onclick="showContact()">📩 Contact</button>
+      <button id="startBtn" class="btn btn--floating">🚀 Start Experience</button>
+    </div>
+
+    <div class="tagline" style="margin:26px 0 12px;font-family:Orbitron,color:#ccc;text-shadow:0 0 10px #7b2ff7">
+      Nexty — Where Innovation Meets Imagination.
+    </div>
+
+    <div class="extra-buttons" id="extraButtons">
+      <button class="btn" id="toolsBtn">🧰 Tools</button>
+      <button class="btn" onclick="openComing('Coming Soon 1')">🔜 Coming Soon 1</button>
+      <button class="btn" onclick="openComing('Coming Soon 2')">🔜 Coming Soon 2</button>
+    </div>
+
+    <div id="toolsBox">
+      <h3>Toolbox</h3>
+      <div class="tool-grid" id="toolGrid"></div>
+    </div>
+  </main>
+
+  <div class="footer-note">✨ Built by Nexty — The Future Starts Here ⚡</div>
+
+  <!-- audio: make sure file path exactly matches the file in /music -->
+  <audio id="bgMusic" loop preload="none">
+    <source src="music/anna_ansak.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Contact modal -->
+  <div id="contactModal" class="modal-backdrop">
+    <div class="modal">
+      <h3>Contact Me</h3>
+      <p class="preview-box">Email: <a href="mailto:imsyber4@gmail.com" style="color:#9fe0ff">imsyber4@gmail.com</a></p>
+      <div class="actions">
+        <button class="modal-btn" onclick="window.location='mailto:imsyber4@gmail.com'">📧 Email</button>
+        <button class="modal-btn" onclick="window.open('https://wa.me/923192084504?text=Hi,%20I%20want%20to%20discuss%20a%20website.')">💬 WhatsApp</button>
+        <button class="modal-btn" onclick="closeContact()">❌ Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tool modal -->
+  <div id="toolModal" class="modal-backdrop">
+    <div class="modal" id="toolModalContent">
+      <h3 id="toolTitle">Tool</h3>
+      <div id="toolInner"></div>
+      <div class="actions">
+        <button class="modal-btn" onclick="closeModal()">❌ Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- connect script (keep script.js in same folder) -->
+  <script src="script.js"></script>
+</body>
+        </html>
