@@ -1,179 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CyberX Pro | Nexty Here ⚡</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/854/854878.png">
-  <style>
-    html,body {
-      margin:0; padding:0; height:100%; overflow:hidden;
-      font-family: 'Poppins', sans-serif;
-      background:#0a001a; color:white; text-align:center;
-    }
-    canvas#particles { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CyberX — Nexty (25 Tools)</title>
 
-    h1.title {
-      font-size:2.4em; margin-top:20px; letter-spacing:2px;
-      background:linear-gradient(90deg,#a855f7,#7b2ff7);
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      z-index:2; position:relative;
-    }
+<!-- Fonts and Styles -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',sans-serif;
+  background:radial-gradient(circle at center,#2b0047,#000010);
+  color:#fff;
+  text-align:center;
+  overflow-x:hidden;
+  transition:.5s;
+}
+canvas{position:fixed;inset:0;z-index:-1;display:block}
 
-    #visitorCount {
-      font-size:0.9em;
-      color:#ccc; margin-top:5px;
-    }
+/* Container */
+.container{max-width:1000px;margin:0 auto;padding:40px 20px}
+h1{font-family:'Orbitron',sans-serif;font-size:3rem;text-shadow:0 0 20px #7b2ff7}
+p.lead{margin-top:10px;color:#dcd6ff;font-size:1.15rem}
 
-    /* Floating central buttons */
-    .floating-btn {
-      position:relative;
-      background:linear-gradient(90deg,#7b2ff7,#a855f7);
-      border:none; color:#fff;
-      padding:14px 28px; border-radius:40px;
-      font-size:1.1em; cursor:pointer;
-      box-shadow:0 0 18px rgba(123,47,247,0.5);
-      animation:float 3s ease-in-out infinite;
-      transition:all 0.3s ease;
-      margin-top:50px;
-    }
-    .floating-btn:hover { transform:scale(1.05); }
+/* Top Buttons */
+.top-buttons{
+  margin-top:50px;
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  align-items:center;
+}
+.btn{
+  background:linear-gradient(45deg,#7b2ff7,#00f0ff);
+  border:none;color:#fff;
+  padding:14px 22px;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:600;
+  font-size:1rem;
+  transition:transform .4s,box-shadow .4s;
+  box-shadow:0 0 18px #7b2ff7;
+  animation:float 3s ease-in-out infinite;
+}
+.btn:hover{transform:translateY(-6px) scale(1.05);box-shadow:0 0 30px #00f0ff}
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-6px);}
+}
 
-    @keyframes float {
-      0%,100% { transform:translateY(0); }
-      50% { transform:translateY(-10px); }
-    }
+/* Extra Buttons */
+.extra-buttons{
+  display:none;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+  margin-top:40px;
+  animation:fadeIn 1s ease-in-out;
+}
+.extra-buttons.show{display:flex;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
 
-    /* Extra buttons hidden until start */
-    #extraButtons {
-      display:flex; justify-content:center; gap:12px;
-      opacity:0; pointer-events:none;
-      transition:opacity 0.6s ease, transform 0.6s ease;
-      transform:translateY(20px);
-      margin-top:20px;
-      z-index:2;
-      position:relative;
-    }
-    #extraButtons.show {
-      opacity:1; pointer-events:auto;
-      transform:translateY(0);
-    }
+/* Tools Box */
+#toolsBox{
+  display:none;
+  margin:40px auto;
+  max-width:900px;
+  padding:20px;
+  border-radius:15px;
+  background:rgba(255,255,255,0.07);
+  box-shadow:0 0 25px rgba(123,47,247,0.4);
+}
+#toolsBox.show{display:block;animation:fadeIn 1s}
+.tool-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:15px;
+}
+.tool{
+  background:linear-gradient(135deg,#7b2ff7,#00f0ff);
+  padding:12px;
+  border-radius:12px;
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+  box-shadow:0 0 10px #00f0ff;
+  min-height:56px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.tool:hover{transform:scale(1.05);box-shadow:0 0 25px #00f0ff}
 
-    #extraButtons button {
-      background:linear-gradient(90deg,#6d28d9,#9333ea);
-      border:none; color:#fff;
-      padding:10px 22px; border-radius:25px;
-      cursor:pointer; font-size:0.95em;
-      transition:0.3s;
-      box-shadow:0 0 10px rgba(147,51,234,0.4);
-    }
-    #extraButtons button:hover { transform:scale(1.05); }
-
-    /* Contact modal */
-    #contactModal {
-      display:none; align-items:center; justify-content:center;
-      position:fixed; top:0; left:0; right:0; bottom:0;
-      background:rgba(0,0,0,0.6); z-index:99;
-    }
-    .contact-box {
-      background:#150030; padding:30px; border-radius:16px;
-      box-shadow:0 0 20px rgba(123,47,247,0.4);
-      width:80%; max-width:360px;
-      text-align:center;
-      animation:pop 0.4s ease;
-    }
-    @keyframes pop { from{transform:scale(0.8);opacity:0;} to{transform:scale(1);opacity:1;} }
-
-    .modal-btn {
-      background:linear-gradient(90deg,#7b2ff7,#a855f7);
-      border:none; color:white; border-radius:25px;
-      padding:10px 24px; margin-top:10px; cursor:pointer;
-    }
-
-    /* Tool modal (tools open here) */
-    #toolModal {
-      display:none; position:fixed; inset:0;
-      background:rgba(0,0,0,0.6);
-      align-items:center; justify-content:center;
-      z-index:200;
-    }
-    .tool-box {
-      background:#0f0223; padding:30px; border-radius:16px;
-      box-shadow:0 0 25px rgba(123,47,247,0.5);
-      width:90%; max-width:480px; text-align:left;
-      animation:pop 0.4s ease;
-    }
-    .tool-box h2 { color:#c084fc; margin-top:0; }
-
-    /* Tools grid */
-    #toolsBox {
-      display:none; flex-wrap:wrap; justify-content:center; gap:10px;
-      margin-top:25px;
-      transition:0.5s ease;
-      z-index:3; position:relative;
-    }
-    #toolsBox.show { display:flex; animation:fadeIn 0.6s ease; }
-    @keyframes fadeIn { from{opacity:0;transform:scale(0.9);} to{opacity:1;transform:scale(1);} }
-
-    .tool {
-      background:rgba(255,255,255,0.08);
-      padding:12px 16px; border-radius:10px;
-      font-size:0.9em; cursor:pointer;
-      transition:all 0.3s;
-    }
-    .tool:hover {
-      background:rgba(123,47,247,0.4);
-      transform:translateY(-3px);
-    }
-
-    footer {
-      position:fixed; bottom:8px; left:0; right:0;
-      font-size:0.8em; color:#aaa;
-    }
-  </style>
+/* Contact Modal */
+.modal-backdrop{
+  position:fixed;inset:0;display:none;
+  background:rgba(0,0,0,0.85);
+  align-items:center;justify-content:center;
+  z-index:1000;padding:20px;overflow:auto;
+}
+.modal{
+  background:#0f0f17;padding:20px;border-radius:12px;
+  max-width:420px;box-shadow:0 0 20px #7b2ff7;
+  color:#fff;text-align:center;
+}
+.modal h3{font-family:'Orbitron',sans-serif;margin-bottom:10px}
+.modal-btn{
+  margin:6px 0;padding:10px 14px;
+  border:none;border-radius:10px;
+  cursor:pointer;
+  background:linear-gradient(45deg,#7b2ff7,#00f0ff);
+  color:#fff;font-weight:600;
+}
+.footer-note{margin-top:50px;font-size:.9rem;opacity:.7;text-shadow:0 0 5px #7b2ff7;}
+#visitorBox{
+  position:fixed;top:15px;right:15px;
+  z-index:999;background:rgba(0,0,0,0.6);
+  padding:8px 14px;border-radius:10px;
+  box-shadow:0 0 12px #7b2ff7;
+  font-family:'Orbitron',sans-serif;
+  font-size:.9rem;color:#00f0ff;
+  text-shadow:0 0 6px #7b2ff7;
+}
+</style>
 </head>
 <body>
-  <canvas id="particles"></canvas>
 
-  <h1 class="title">CyberX Pro ⚡</h1>
-  <div id="visitorCount">Visitors: ...</div>
+<!-- Particles -->
+<canvas id="particles"></canvas>
 
-  <button id="startBtn" class="floating-btn">🚀 Start Experience</button>
+<!-- Visitor Counter -->
+<div id="visitorBox">👁 Visitors: <span id="visitorCount">--</span></div>
 
-  <div id="extraButtons">
-    <button id="toolsBtn">🧰 Tools</button>
-    <button>🔜 Coming Soon</button>
-    <button>🔜 Coming Soon</button>
+<!-- Main Content -->
+<main class="container">
+  <h1>💻 CyberX ⚡</h1>
+  <p class="lead">All 25 Tools — fully functional.</p>
+
+  <div class="top-buttons">
+    <button class="btn" onclick="showContact()">📩 Contact</button>
+    <button id="startBtn" class="btn">🚀 Start Experience</button>
   </div>
 
-  <div id="toolsBox"></div>
+  <div class="extra-buttons" id="extraButtons">
+    <button id="toolsBtn" class="btn">🧰 Tools</button>
+    <button class="btn" onclick="openComing('Coming Soon 1')">🔜 Coming Soon 1</button>
+    <button class="btn" onclick="openComing('Coming Soon 2')">🔜 Coming Soon 2</button>
+  </div>
 
-  <!-- Contact Modal -->
-  <div id="contactModal">
-    <div class="contact-box">
-      <h2>Contact Info</h2>
-      <p>Email: support@nexty.dev</p>
-      <p>GitHub: github.com/nexty22</p>
-      <button class="modal-btn" onclick="closeContact()">Close</button>
+  <div id="toolsBox">
+    <h3>Toolbox</h3>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+</main>
+
+<div class="footer-note">✨ Built by Nexty — The Future Starts Here ⚡</div>
+
+<!-- Audio -->
+<audio id="bgMusic" loop>
+  <source src="music/music_anna_ansak.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Contact Modal -->
+<div id="contactModal" class="modal-backdrop">
+  <div class="modal">
+    <h3>Contact Me</h3>
+    <button class="modal-btn" onclick="window.location='mailto:imsyber4@gmail.com'">📧 Email Me</button>
+    <button class="modal-btn" onclick="window.open('https://wa.me/923192084504?text=Hi,%20I%20want%20to%20discuss%20a%20website.')">💬 WhatsApp</button>
+    <button class="modal-btn" onclick="closeContact()">❌ Close</button>
+  </div>
+</div>
+
+<!-- Tool Modal -->
+<div id="toolModal" class="modal-backdrop">
+  <div class="modal">
+    <h3 id="toolTitle">Tool</h3>
+    <div id="toolInner"></div>
+    <div style="margin-top:12px">
+      <button class="modal-btn" onclick="closeModal()">❌ Close</button>
     </div>
   </div>
+</div>
 
-  <!-- Tool Modal -->
-  <div id="toolModal">
-    <div class="tool-box">
-      <h2 id="toolTitle"></h2>
-      <div id="toolInner"></div>
-    </div>
-  </div>
-
-  <!-- Background music -->
-  <audio id="bgMusic" loop>
-    <source src="music/anna_ansak.mp3" type="audio/mpeg">
-  </audio>
-
-  <footer>Nexty Here ⚡ | CyberX Pro</footer>
-
-  <!-- Link your JS -->
-  <script src="script.js"></script>
+<!-- JS -->
+<script src="script.js"></script>
 </body>
 </html>
