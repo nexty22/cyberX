@@ -1,38 +1,52 @@
-# ⚡ CyberX
+# ⚡ CyberX — By Nexty  
 
-A futuristic multi-tool web app built for creators, developers, and tech enthusiasts.  
-CyberX brings together 20+ useful tools — all wrapped in a minimal, cyberpunk-inspired interface.
+### 🚀 The Most Advanced Multi-Tool Web Experience  
 
----
-
-## 🌐 Live Demo  
-👉 [https://nexty22.github.io/cyberX](https://nexty22.github.io/cyberX)
+CyberX is a futuristic, feature-rich web application built to showcase innovation and creativity.  
+It’s powered by **HTML, CSS, and JavaScript** — completely **client-side** and **offline ready**.  
 
 ---
 
-## ✨ Overview  
+## 🌌 Features
 
-CyberX is designed to be fast, responsive, and fun to use.  
-It features a glowing loader, animated particles, dark/light mode toggle, background music, and a clean modular layout where each tool opens within the same page.
-
-This isn’t just a showcase — it’s a personal utility hub.
-
----
-
-## 🧩 Core Tools  
-
-| Category | Tools |
-|-----------|-------|
-| 💻 Development | Code Formatter, JSON Beautifier, Base64 Encoder/Decoder |
-| 🔐 Security | Password Generator, Text Encrypt/Decrypt |
-| 📄 Productivity | Notes, To-Do, Markdown Viewer |
-| 🎨 Design | Color Picker, Image Compressor, QR Generator |
-| 📊 Utilities | Unit Converter, File Converter, Random Number Generator |
-| 🌐 Info | IP Tracker, Weather, Currency Converter |
-| 🎧 Others | Text-to-Speech, Stopwatch, Countdown Timer, Clock |
-
-More tools are being added regularly.
+✨ **25+ Powerful Tools** — From productivity to creativity, all in one place.  
+🎵 **Interactive Experience** — Dynamic music playback that responds to user interaction.  
+💡 **Smart Idea Generator** — Instantly sparks new ideas and inspiration.  
+🎨 **Light/Dark Mode** — Smooth transitions with one click.  
+🧠 **AI-Like Interface** — But made entirely with web technologies, not AI-generated.  
+🪄 **Animated UI** — Particles, neon glow, and smooth transitions for a next-gen experience.  
 
 ---
 
-## 🧱 Project Structure
+## 🧰 Tools Included
+Some of the featured tools:
+- 💡 Idea Generator  
+- 🧮 Calculator  
+- 📅 Scheduler  
+- 📝 Notes  
+- 🌐 Web Preview  
+- 🎨 Color Picker  
+- 🔢 Number Converter  
+- 📏 Unit Converter  
+- 📸 Image Compressor  
+- 📂 File Encryptor  
+- 🔍 Text Analyzer  
+- 🕒 Stopwatch  
+- 🧭 Compass  
+- 🕹 Game Mode (Mini Fun Tools)  
+- 🔊 Soundboard  
+- 🧮 BMI Calculator  
+- 🧾 QR Code Generator  
+- 📆 Countdown Timer  
+- 📋 Clipboard Manager  
+- ⚙️ System Info Viewer  
+
+*(and many more… up to 25)*  
+
+---
+
+## 💻 How to Run Locally
+
+1. **Download or Clone** the repository:
+   ```bash
+   git clone https://github.com/nexty22/cyberX.git
