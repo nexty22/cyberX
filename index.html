@@ -4,75 +4,80 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>CyberX — Nexty</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <canvas id="particles"></canvas>
 
-  <button id="toggleMode" class="toggle-mode" title="Toggle dark/light">🌙</button>
+  <button id="modeToggle" class="mode-toggle" title="Toggle dark/light">🌙</button>
 
-  <main class="container" id="main">
-    <header class="header">
-      <h1 class="brand">💻 CyberX ⚡ — Nexty</h1>
-      <p class="lead">25 advanced mini-tools. Click <strong>Start Experience</strong> then <strong>Tools</strong>.</p>
-    </header>
+  <main class="center-wrap">
+    <div class="card">
+      <h1 class="brand">💻 CyberX ⚡</h1>
+      <p class="sub">Nexty — The Most Advanced Maker</p>
 
-    <div class="top-buttons">
-      <button id="contactBtn" class="btn">📩 Contact</button>
-      <button id="startBtn" class="btn">🚀 Start Experience</button>
+      <div class="main-buttons">
+        <button id="startBtn" class="btn primary">🚀 Start Experience</button>
+        <button id="contactBtn" class="btn secondary">📩 Contact</button>
+      </div>
+
+      <div class="below-note">Click <strong>Start Experience</strong> to unlock Tools & play music</div>
+
+      <div class="three-buttons">
+        <button id="toolsBtn" class="btn tertiary">🧰 Tools</button>
+        <button id="coming1" class="btn tertiary disabled">🔜 Coming Soon</button>
+        <button id="coming2" class="btn tertiary disabled">🔜 Coming Soon</button>
+      </div>
+
+      <div class="counters">
+        <div class="stat">👁️ <div id="pv">—</div><div class="label">Local visits</div></div>
+        <div class="stat">🧍 <div id="uv">—</div><div class="label">Unique (local)</div></div>
+      </div>
     </div>
-
-    <div id="extraBtns" class="extra-buttons" aria-hidden="true">
-      <button id="toolsBtn" class="btn">🧰 Tools</button>
-      <button id="coming1" class="btn">🚧 Coming Soon 1</button>
-      <button id="coming2" class="btn">🚧 Coming Soon 2</button>
-    </div>
-
-    <div class="tagline">Nexty — Where innovation meets imagination ✨</div>
-
-    <section id="visitorStats" class="visitor-stats">
-      <div class="stat-card">👁️ <strong id="pageviewsCount">—</strong><div class="stat-label">Pageviews</div></div>
-      <div class="stat-card">🧍 <strong id="uniqueCount">—</strong><div class="stat-label">Unique Visitors</div></div>
-      <div class="stat-card">⏱️ <strong id="activeCount">—</strong><div class="stat-label">Active</div></div>
-    </section>
-
-    <section id="toolsBox" class="tools-box" aria-hidden="true">
-      <h2 class="tools-title">🧰 Toolbox</h2>
-      <div id="toolsGrid" class="tool-grid" role="list"></div>
-    </section>
-
-    <footer class="footer">✨ Built by Nexty — The Future Starts Here ⚡</footer>
   </main>
 
-  <!-- Tool Popup -->
-  <div id="toolPopup" class="popup" aria-hidden="true">
-    <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
-      <div class="popup-header">
-        <h3 id="popupTitle" class="popup-title"></h3>
-        <div class="popup-actions">
-          <button id="popupClose" class="smallBtn ghost">Close</button>
-        </div>
-      </div>
-      <div id="popupBody" class="popup-body"></div>
-    </div>
-  </div>
-
-  <!-- Contact Modal (same popup style) -->
-  <div id="contactModal" class="popup" aria-hidden="true">
-    <div class="popup-box">
-      <div class="popup-header">
-        <h3>Contact Nexty</h3>
-        <div class="popup-actions"><button id="contactClose" class="smallBtn ghost">Close</button></div>
-      </div>
-      <div class="popup-body">
+  <!-- Contact Modal -->
+  <div id="contactModal" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <h3>Contact Nexty</h3>
+      <div class="modal-body">
         <p>📧 <a href="mailto:imsyber4@gmail.com">imsyber4@gmail.com</a></p>
         <p>💬 <a href="https://wa.me/923192084504?text=Hi%20Nexty" target="_blank" rel="noopener">WhatsApp</a></p>
       </div>
+      <div class="modal-actions"><button id="closeContact" class="btn small">Close</button></div>
     </div>
   </div>
 
-  <!-- audio -->
-  <audio id="bgMusic" loop preload="auto"><source src="music/music_anna_ansak.mp3" type="audio/mpeg"></audio>
+  <!-- Tools Modal (centered) -->
+  <div id="toolsModal" class="modal" aria-hidden="true">
+    <div class="tools-card">
+      <div class="tools-header">
+        <h3>🧰 Toolbox</h3>
+        <div>
+          <button id="closeTools" class="btn small ghost">Close</button>
+        </div>
+      </div>
+
+      <div class="tools-body">
+        <div class="tools-grid" id="toolsGrid"></div>
+
+        <!-- tool panel (inside tools modal) -->
+        <div id="toolPanel" class="tool-panel" aria-hidden="true">
+          <div class="tool-panel-head">
+            <h4 id="toolTitle"></h4>
+            <button id="closePanel" class="btn small ghost">Close</button>
+          </div>
+          <div id="toolBody" class="tool-panel-body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global audio file in repo/music/ -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music/music_anna_ansak.mp3" type="audio/mpeg">
+  </audio>
 
   <script src="script.js"></script>
 </body>
