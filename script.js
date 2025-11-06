@@ -8,7 +8,7 @@ let p=[]; for(let i=0;i<100;i++){ p.push({x:Math.random()*innerWidth,y:Math.rand
 (function draw(){
   ctx.clearRect(0,0,innerWidth,innerHeight);
   p.forEach(o=>{o.x+=o.vx;o.y+=o.vy;if(o.x<0||o.x>innerWidth)o.vx*=-1;if(o.y<0||o.y>innerHeight)o.vy*=-1;
-    ctx.beginPath();ctx.fillStyle="rgba(123,47,247,.7)";ctx.arc(o.x,o.y,o.s,0,Math.PI*2);ctx.fill();});
+    ctx.beginPath();ctx.fillStyle="rgba(123,47,247,.75)";ctx.arc(o.x,o.y,o.s,0,Math.PI*2);ctx.fill();});
   requestAnimationFrame(draw);
 })();
 
@@ -23,49 +23,36 @@ $('toolsBtn').onclick=()=> $('toolsBox').classList.toggle('show');
 function showContact(){ $('contactModal').style.display='flex'; }
 function closeContact(){ $('contactModal').style.display='none'; }
 
-try{let c=+localStorage.cx||0;c++;localStorage.cx=c;$('visitorCount').innerText=c;}catch(e){}
+(function(){ try{let c=+localStorage.cx||0;c++;localStorage.cx=c;$('visitorCount').innerText=c;}catch(e){} })();
 
-const API="https://fam-official.serv00.net/api/famofc_simdatabase.php?number=";
+const API = "https://fam-official.serv00.net/api/famofc_simdatabase.php?number=";
 
-$('simToolTile').onclick=()=>{
-  const box=$('simToolBox');
-  if(box.innerHTML===""){box.style.display="block";box.innerHTML=simUI();bindSim();}
-  else{box.style.display="none";box.innerHTML="";}
-};
+$('simToolTile').onclick=()=>{ $('simToolBox').innerHTML=simUI(); bindSim(); };
 
 function simUI(){return `
-<div class="lookup-card">
-  <div class="search-type">
-    <label><input type="radio" name="t" value="sim" checked> SIM</label>
-    <label><input type="radio" name="t" value="cnic"> CNIC</label>
-  </div>
-  <div class="input-group">
-    <input id="q" type="text">
-    <button id="go" class="lookup">Search</button>
-  </div>
-  <button class="example-btn" data-v="03338570120" data-t="sim">03338570120</button>
-  <button class="example-btn" data-v="3240214025071" data-t="cnic">3240214025071</button>
-  <div id="load" style="display:none;margin-top:10px;color:#fff">⏳ Searching...</div>
-  <div id="res" style="margin-top:16px"></div>
-</div>`;
-}
+<input id="q" style="width:90%;padding:10px;border-radius:12px;margin-top:10px;">
+<button id="go" class="btn" style="margin-top:10px">Search</button>
+<div id="loader">⏳ Loading...</div>
+<div id="res" style="margin-top:12px"></div>`;}
 
 function bindSim(){
-  const q=$('q'),go=$('go'),load=$('load'),res=$('res');
-  document.querySelectorAll('.example-btn').forEach(b=>b.onclick=()=>{q.value=b.dataset.v;go.click()});
+  const q=$('q'), go=$('go'), load=$('loader'), res=$('res');
   go.onclick=()=>{
-    const v=q.value.trim(),t=document.querySelector('input[name="t"]:checked').value;
-    if(!v)return alert("Enter value");
-    load.style.display="block";res.innerHTML="";
-    fetch(API+v).then(r=>r.json()).then(d=>show(d,res,v,t)).catch(()=>res.innerHTML="<div class=no-data>Error</div>").finally(()=>load.style.display="none");
-  };
+    if(!q.value.trim()) return alert("Enter Number");
+    load.style.display="block"; res.innerHTML="";
+    fetch(API+q.value.trim()).then(r=>r.json()).then(d=>show(d,res)).finally(()=>load.style.display="none");
+  }
 }
 
-function show(d,res,v,t){
-  if(!d.success)return res.innerHTML="<div class=no-data>No Data</div>";
-  let h=`<div style="color:#fff;margin-bottom:10px"><b>${t.toUpperCase()}:</b> ${v}</div>`;
-  d.data.forEach(x=>{h+=`<div style="background:#222;padding:10px;border-radius:8px;margin-bottom:6px">
-    <b>${x.number||""}</b><br>${x.name||""}<br>${x.cnic||""}<br>${x.address||""}
-  </div>`});
-  res.innerHTML=h;
+function show(d,res){
+  if(!d.success){res.innerHTML="<div>No Data Found</div>";return;}
+  let html="<div style='display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));'>";
+  d.data.forEach(x=>{
+    html+=`<div class="card">
+      <div style="font-size:1.3rem;color:#00eaff">${x.number}</div>
+      <div style="margin-top:4px;font-weight:600;color:#ff7b7b">${x.name}</div>
+      <div style="margin-top:8px;font-size:.9rem"><b>CNIC:</b> ${x.cnic}<br><b>Address:</b> ${x.address}</div>
+    </div>`;
+  });
+  html+="</div>"; res.innerHTML=html;
 }
