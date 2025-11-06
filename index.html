@@ -1,53 +1,78 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>CyberX — Nexty (SIM Lookup)</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CyberX — Nexty (Tools)</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
 <style>
-/* SAME CSS AS BEFORE (not touching design) */
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%}
-body{font-family:'Inter',sans-serif;background:radial-gradient(circle at center,#2b0047,#000010);color:#fff;text-align:center;overflow-x:hidden;}
-canvas#particles{position:fixed;inset:0;z-index:0;display:block}
-.container{max-width:1000px;margin:0 auto;padding:24px 16px;position:relative;z-index:2}
-h1{font-family:'Orbitron',sans-serif;font-size:2.4rem;margin-top:8px;text-shadow:0 0 18px #7b2ff7}
-p.lead{margin-top:8px;color:#dcd6ff;font-size:1rem}
-.top-buttons{margin-top:30px;display:flex;justify-content:center;gap:14px;align-items:center;flex-wrap:wrap}
-.btn{background:linear-gradient(45deg,#7b2ff7,#00f0ff);border:none;color:#fff;padding:12px 18px;border-radius:26px;cursor:pointer;font-weight:600;font-size:.98rem;box-shadow:0 0 14px #7b2ff7;transition:transform .25s,box-shadow .25s;}
-.btn:hover{transform:translateY(-6px);box-shadow:0 0 30px #00f0ff}
-.extra-buttons{display:none;flex-direction:column;gap:12px;align-items:center;margin-top:22px;}
+body{
+  font-family:'Inter',sans-serif;
+  background:radial-gradient(circle at center,#2b0047,#000010);
+  color:#fff;text-align:center;
+  overflow-x:hidden;
+}
+canvas{position:fixed;inset:0;z-index:-1;display:block}
+.container{max-width:1000px;margin:0 auto;padding:40px 20px}
+h1{font-family:'Orbitron',sans-serif;font-size:3rem;text-shadow:0 0 20px #7b2ff7}
+p.lead{margin-top:10px;color:#dcd6ff;font-size:1.15rem}
+
+/* Loader */
+#loader{
+  position:fixed;inset:0;
+  background:#000000d0;
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(10px);
+  z-index:2000;
+  animation:fadeOut 1s ease forwards;
+  animation-delay:4s;
+}
+@keyframes fadeOut{to{opacity:0;visibility:hidden}}
+.loader-circle{
+  width:60px;height:60px;
+  border:6px solid #7b2ff7;border-top-color:transparent;
+  border-radius:50%;animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Buttons */
+.top-buttons{margin-top:50px;display:flex;justify-content:center;gap:20px}
+.btn{
+  background:linear-gradient(45deg,#7b2ff7,#00f0ff);
+  border:none;color:#fff;padding:14px 22px;border-radius:30px;
+  cursor:pointer;font-weight:600;font-size:1rem;
+  box-shadow:0 0 18px #7b2ff7;transition:.4s;
+}
+.btn:hover{transform:scale(1.06)}
+
+/* Extra Buttons */
+.extra-buttons{display:none;flex-direction:column;gap:12px;margin-top:35px}
 .extra-buttons.show{display:flex}
-#toolsBox{display:none;margin:18px auto 6px;max-width:920px;padding:18px;border-radius:14px;background:rgba(255,255,255,0.04);box-shadow:0 0 24px rgba(123,47,247,0.25)}
+
+/* Toolbox */
+#toolsBox{display:none;margin-top:35px;padding:20px;background:#ffffff15;border-radius:15px;backdrop-filter:blur(10px)}
 #toolsBox.show{display:block}
-.tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.tool{background:linear-gradient(135deg,#7b2ff7,#00f0ff);padding:14px;border-radius:12px;color:#fff;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;min-height:56px;box-shadow:0 0 10px #00f0ff}
-.tool:hover{transform:scale(1.03)}
-.visitor-box{position:fixed;top:14px;right:14px;z-index:999;background:rgba(0,0,0,0.55);padding:8px 12px;border-radius:10px;box-shadow:0 0 12px #7b2ff7;font-family:'Orbitron',sans-serif;color:#00f0ff}
-.footer-note{margin-top:24px;font-size:.9rem;opacity:.85}
-.sim-tool-wrap{background:#161322;padding:16px;border-radius:12px}
-.lookup-card{background:#fff;border-radius:12px;padding:14px;color:#222}
-.search-type{display:flex;gap:12px;justify-content:center;margin-bottom:12px}
-.search-option{display:flex;align-items:center;gap:8px;color:#222}
-.input-group{display:flex;gap:0;margin-bottom:10px}
-input[type="text"]{flex:1;padding:12px;border:2px solid #e7e7e7;border-radius:8px 0 0 8px;font-size:1rem}
-button.lookup{background:linear-gradient(90deg,#1a2a6c,#b21f1f);color:#fff;border:none;padding:0 18px;border-radius:0 8px 8px 0;cursor:pointer}
-.examples{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px}
-.example-btn{background:#f1f3f5;border-radius:18px;padding:8px 12px;border:none;color:#222;cursor:pointer}
-.no-data{padding:18px;color:#666}
+
+.tool{
+  padding:14px;border-radius:12px;background:linear-gradient(135deg,#7b2ff7,#00f0ff);
+  cursor:pointer;font-weight:600;box-shadow:0 0 15px #7b2ff7;
+}
+
+/* Modal */
+.modal-backdrop{position:fixed;inset:0;display:none;background:#000000c0;backdrop-filter:blur(10px);align-items:center;justify-content:center;z-index:1000}
+.modal{background:#0f0f17;padding:22px;border-radius:12px;max-width:450px}
 </style>
 </head>
-
 <body>
 
+<div id="loader"><div class="loader-circle"></div></div>
+
 <canvas id="particles"></canvas>
-<div class="visitor-box">👁 Visitors: <span id="visitorCount">--</span></div>
 
 <main class="container">
   <h1>💻 CyberX ⚡</h1>
-  <p class="lead">Nexty — Where Innovation Meets Imagination.</p>
+  <p class="lead">Experience Tools with Futuristic UI.</p>
 
   <div class="top-buttons">
     <button class="btn" onclick="showContact()">📩 Contact</button>
@@ -56,26 +81,26 @@ button.lookup{background:linear-gradient(90deg,#1a2a6c,#b21f1f);color:#fff;borde
 
   <div class="extra-buttons" id="extraButtons">
     <button id="toolsBtn" class="btn">🧰 Tools</button>
+    <button class="btn">🔜 Coming Soon 1</button>
+    <button class="btn">🔜 Coming Soon 2</button>
   </div>
 
   <div id="toolsBox">
-    <div class="tool-grid">
-      <div id="simToolTile" class="tool">📱 SIM Database Lookup</div>
-    </div>
-    <div id="simToolBox" style="margin-top:14px;display:none"></div>
+    <div class="tool" id="simToolTile">📱 SIM Database Lookup</div>
+    <button class="btn" onclick="closeTools()">❌ Close</button>
   </div>
-
-  <div class="footer-note">✨ CyberX — Nexty ⚡</div>
 </main>
 
-<audio id="bgMusic" loop>
+<audio id="bgMusic" loop preload="auto">
   <source src="music/anna_ansak.mp3" type="audio/mpeg">
 </audio>
 
-<div id="contactModal" style="display:none;position:fixed;inset:0;align-items:center;justify-content:center;background:rgba(0,0,0,.8);z-index:9999;color:#fff;">
-  <div style="background:#111;padding:20px;border-radius:14px">
-    <h3>Contact</h3>
-    <button class="btn" onclick="closeContact()" style="margin-top:10px;background:red">❌ Close</button>
+<div id="contactModal" class="modal-backdrop">
+  <div class="modal">
+    <h3>📩 Contact</h3>
+    <button class="btn" onclick="window.location='mailto:imsyber4@gmail.com'">✉️ Email</button><br><br>
+    <button class="btn" onclick="window.open('https://wa.me/923192084504')">💬 WhatsApp</button><br><br>
+    <button class="btn" onclick="closeContact()">❌ Close</button>
   </div>
 </div>
 
