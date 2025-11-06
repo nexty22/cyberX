@@ -3,107 +3,158 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>CyberX — Nexty</title>
-
+<title>CyberX — Nexty (SIM Lookup)</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
 <style>
+/* layout + theme */
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:'Inter',sans-serif;
-  background:radial-gradient(circle at center,#2b0047,#000010);
-  color:#fff;text-align:center;overflow-x:hidden;
-}
-canvas{position:fixed;inset:0;z-index:-1;display:block}
-.container{max-width:1000px;margin:0 auto;padding:40px 20px}
-h1{font-family:'Orbitron',sans-serif;font-size:2.8rem;text-shadow:0 0 20px #7b2ff7}
-p.lead{margin-top:8px;color:#dcd6ff;font-size:1.1rem}
+html,body{height:100%}
+body{font-family:'Inter',sans-serif;background:radial-gradient(circle at center,#2b0047,#000010);color:#fff;text-align:center;overflow-x:hidden}
+canvas#particles{position:fixed;inset:0;z-index:0;display:block}
 
-.top-buttons, .extra-buttons{
-  display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top:25px;
-}
-.btn{
-  background:linear-gradient(45deg,#7b2ff7,#00f0ff);
-  border:none;color:#fff;padding:14px 20px;border-radius:30px;
-  cursor:pointer;font-weight:600;font-size:1rem;
-  box-shadow:0 0 18px #7b2ff7;transition:.35s;
-}
-.btn:hover{transform:scale(1.07);box-shadow:0 0 28px #00f0ff}
+/* main container */
+.container{max-width:1000px;margin:0 auto;padding:24px 16px;position:relative;z-index:2}
+h1{font-family:'Orbitron',sans-serif;font-size:2.4rem;margin-top:8px;text-shadow:0 0 18px #7b2ff7}
+p.lead{margin-top:8px;color:#dcd6ff;font-size:1rem}
 
-.extra-buttons{display:none}
+/* top controls */
+.top-buttons{margin-top:30px;display:flex;justify-content:center;gap:14px;align-items:center;flex-wrap:wrap}
+.btn{background:linear-gradient(45deg,#7b2ff7,#00f0ff);border:none;color:#fff;padding:12px 18px;border-radius:26px;cursor:pointer;font-weight:600;font-size:.98rem;box-shadow:0 0 14px #7b2ff7;transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-6px);box-shadow:0 0 30px #00f0ff}
+
+/* extra and small buttons */
+.extra-buttons{display:none;flex-direction:column;gap:12px;align-items:center;margin-top:22px}
 .extra-buttons.show{display:flex}
+.small-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.small-btn{background:linear-gradient(45deg,#7b2ff7,#00f0ff);padding:10px 14px;border-radius:22px;font-weight:600;cursor:pointer;box-shadow:0 0 12px #7b2ff7}
 
-#toolsBox{
-  display:none;margin-top:30px;padding:20px;
-  border-radius:16px;background:rgba(255,255,255,0.05);
-  box-shadow:0 0 25px rgba(123,47,247,0.4)
-}
+/* tools box */
+#toolsBox{display:none;margin:18px auto 6px;max-width:920px;padding:18px;border-radius:14px;background:rgba(255,255,255,0.04);box-shadow:0 0 24px rgba(123,47,247,0.25)}
 #toolsBox.show{display:block}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.tool{background:linear-gradient(135deg,#7b2ff7,#00f0ff);padding:14px;border-radius:12px;color:#fff;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;min-height:48px;box-shadow:0 0 10px #00f0ff}
+.tool.small{min-height:44px;font-size:.95rem}
 
-.tool-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.tool{
-  background:linear-gradient(135deg,#7b2ff7,#00eaff);
-  border-radius:12px;padding:14px;font-weight:700;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;box-shadow:0 0 14px #00eaff;
-}
+/* visitor box */
+.visitor-box{position:fixed;top:14px;right:14px;z-index:999;background:rgba(0,0,0,0.55);padding:8px 12px;border-radius:10px;box-shadow:0 0 12px #7b2ff7;font-family:'Orbitron',sans-serif;color:#00f0ff}
 
-.sim-tool-wrap{margin-top:20px}
-.card{background:rgba(255,255,255,0.1);backdrop-filter:blur(12px);
-  border-radius:14px;padding:16px;border:1px solid rgba(255,255,255,0.25);
-  box-shadow:0 0 18px rgba(0,255,255,0.25);transition:.3s;}
+/* sim tool */
+.sim-tool-wrap{background:#161322;padding:16px;border-radius:12px}
+.lookup-card{background:#fff;border-radius:12px;padding:14px;color:#222;max-width:720px;margin:0 auto;box-shadow:0 12px 30px rgba(0,0,0,0.5)}
+.search-type{display:flex;gap:12px;justify-content:center;margin-bottom:12px}
+.search-option{display:flex;align-items:center;gap:8px;color:#222}
+.input-group{display:flex;gap:0;margin-bottom:10px}
+input[type="text"]{flex:1;padding:12px;border:2px solid #e7e7e7;border-radius:8px 0 0 8px;font-size:1rem}
+button.lookup{background:linear-gradient(90deg,#1a2a6c,#b21f1f);color:#fff;border:none;padding:0 18px;border-radius:0 8px 8px 0;cursor:pointer}
+.examples{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.example-btn{background:#f1f3f5;border-radius:18px;padding:8px 12px;border:none;color:#222;cursor:pointer}
+.no-data{padding:18px;color:#666}
 
-.visitor-box{position:fixed;top:14px;right:14px;padding:8px 14px;border-radius:10px;
-box-shadow:0 0 12px #7b2ff7;background:rgba(0,0,0,.55);font-family:'Orbitron';color:#00f0ff}
+/* results */
+.result-card{background:#0f0f10;color:#fff;border-radius:10px;padding:12px;margin-top:12px;text-align:left}
+.result-row{display:flex;gap:12px;align-items:center;justify-content:space-between}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-top:8px}
+.info-card{background:#fff;color:#222;border-radius:8px;padding:10px;box-shadow:0 6px 18px rgba(0,0,0,0.2)}
+.info-label{font-size:0.8rem;color:#666}
+.info-value{font-weight:700;font-size:1rem}
 
-#loader{display:none;margin-top:10px;font-size:1.1rem;animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+/* login modal */
+#loginModal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.7);z-index:9999}
+.login-box{background:linear-gradient(180deg,#12071a,#1b0b2a);padding:18px;border-radius:12px;min-width:280px;max-width:360px;box-shadow:0 12px 40px rgba(0,0,0,0.6);color:#fff;transform:translateY(-10px);opacity:0;animation:pop .45s forwards}
+@keyframes pop{to{transform:none;opacity:1}}
+.login-box h3{font-family:Orbitron, sans-serif;margin-bottom:8px}
+.login-row{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.login-row input{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#fff}
+.login-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
 
-#contactModal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;
-align-items:center;justify-content:center;z-index:999;}
-.contact-box{background:#111;padding:22px;border-radius:14px;text-align:center}
-.contact-btn{margin-top:10px;width:100%;padding:12px;border:none;border-radius:10px;
-font-weight:600;color:#fff;background:linear-gradient(45deg,#7b2ff7,#00f0ff);cursor:pointer}
+/* admin panel */
+#adminPanel{display:none;position:fixed;top:10%;right:12px;z-index:9998;background:rgba(255,255,255,0.06);padding:12px;border-radius:10px;min-width:260px;color:#fff;box-shadow:0 12px 30px rgba(0,0,0,0.6)}
+.admin-title{font-weight:700;margin-bottom:8px}
+
+/* loader overlay for searches (fade) */
+#loaderOverlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);z-index:9997}
+.loader-pill{background:linear-gradient(90deg,#7b2ff7,#00f0ff);padding:12px 18px;border-radius:20px;box-shadow:0 6px 30px rgba(123,47,247,0.4)}
+.loader-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin:0 6px;background:#fff;opacity:.2;animation:dot 1.2s infinite}
+@keyframes dot{0%{opacity:.2;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}100%{opacity:.2;transform:translateY(0)}}
+
+/* responsive */
+@media (max-width:720px){h1{font-size:2rem}.tool-grid{grid-template-columns:1fr}.lookup-card{padding:12px}}
 </style>
 </head>
-
 <body>
-<canvas id="particles"></canvas>
 
+<canvas id="particles"></canvas>
 <div class="visitor-box">👁 Visitors: <span id="visitorCount">--</span></div>
 
 <main class="container">
-<h1>💻 CyberX ⚡</h1>
-<p class="lead">Nexty — Where Innovation Meets Imagination.</p>
+  <h1>💻 CyberX ⚡</h1>
+  <p class="lead">Nexty — Where Innovation Meets Imagination.</p>
 
-<div class="top-buttons">
-  <button class="btn" onclick="showContact()">📩 Contact</button>
-  <button id="startBtn" class="btn">🚀 Start Experience</button>
-</div>
-
-<div class="extra-buttons" id="extraButtons">
-  <button id="toolsBtn" class="btn">🧰 Tools</button>
-  <button class="btn">🔜 Coming Soon 1</button>
-  <button class="btn">🔜 Coming Soon 2</button>
-</div>
-
-<div id="toolsBox">
-  <div class="tool-grid">
-    <div id="simToolTile" class="tool">📱 SIM Database Lookup</div>
+  <div class="top-buttons">
+    <button class="btn" id="contactBtn">📩 Contact</button>
+    <button class="btn" id="startBtn">🚀 Start Experience</button>
   </div>
-  <div id="simToolBox" class="sim-tool-wrap"></div>
-</div>
 
-<p style="margin-top:40px;opacity:.7">✨ CyberX — Nexty ⚡</p>
+  <div class="extra-buttons" id="extraButtons">
+    <div class="small-row">
+      <button id="toolsBtn" class="small-btn">🧰 Tools</button>
+      <button id="coming1" class="small-btn">🔜 Coming Soon 1</button>
+      <button id="coming2" class="small-btn">🔜 Coming Soon 2</button>
+    </div>
+  </div>
+
+  <div id="toolsBox">
+    <div class="tool-grid">
+      <div id="simToolTile" class="tool">📱 SIM Database Lookup</div>
+    </div>
+
+    <div id="simToolBox" style="margin-top:14px;display:none"></div>
+  </div>
+
+  <div style="height:36px"></div>
+  <div style="color:#dcd6ff;font-size:.95rem">✨ CyberX — Nexty ⚡</div>
 </main>
 
-<audio id="bgMusic" loop><source src="music/anna_ansak.mp3" type="audio/mpeg"></audio>
+<!-- audio -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="music/anna_ansak.mp3" type="audio/mpeg">
+</audio>
 
-<div id="contactModal">
-  <div class="contact-box">
-    <h3>Contact Me</h3>
-    <button class="contact-btn" onclick="location='mailto:imsyber4@gmail.com'">✉ Email</button>
-    <button class="contact-btn" onclick="location='https://wa.me/923192084504'">💬 WhatsApp</button>
-    <button onclick="closeContact()" class="contact-btn" style="background:red">❌ Close</button>
+<!-- loader overlay (fade animation) -->
+<div id="loaderOverlay"><div class="loader-pill">Searching <span class="loader-dot" style="animation-delay:0s"></span><span class="loader-dot" style="animation-delay:.2s"></span><span class="loader-dot" style="animation-delay:.4s"></span></div></div>
+
+<!-- login modal -->
+<div id="loginModal">
+  <div class="login-box">
+    <h3>Admin Login</h3>
+    <div class="login-row">
+      <input id="loginUser" placeholder="Username">
+      <input id="loginPass" placeholder="Password" type="password">
+    </div>
+    <div class="login-actions">
+      <button class="btn" id="loginCancel" style="background:#555">Cancel</button>
+      <button class="btn" id="loginSubmit">Login</button>
+    </div>
+    <div style="margin-top:8px;font-size:.85rem;color:#cfc">use: <b>nexty</b> / <b>ofcnexty</b></div>
+  </div>
+</div>
+
+<!-- admin panel -->
+<div id="adminPanel">
+  <div class="admin-title">Admin • Nexty</div>
+  <div>Visitors: <span id="adminVisitors">--</span></div>
+  <div style="margin-top:8px"><button id="logoutBtn" class="small-btn">Logout</button></div>
+</div>
+
+<!-- contact popup (simple) -->
+<div id="contactModal" style="display:none;position:fixed;inset:0;align-items:center;justify-content:center;background:rgba(0,0,0,.8);z-index:9999;color:#fff;">
+  <div style="background:#111;padding:20px;border-radius:14px;min-width:260px">
+    <h3>Contact</h3>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+      <a class="btn" href="mailto:imsyber4@gmail.com">✉️ Email: imsyber4@gmail.com</a>
+      <a class="btn" href="https://wa.me/923192084504?text=Hi%20Nexty" target="_blank">💬 WhatsApp</a>
+      <button class="btn" id="closeContactBtn" style="background:#b21f1f">❌ Close</button>
+    </div>
   </div>
 </div>
 
