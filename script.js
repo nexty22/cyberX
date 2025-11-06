@@ -442,20 +442,7 @@ async function openAudioTrim(){
   };
 }
 
-/* ---------- Tools 13–25 (simplified functional set) ---------- */
-function openVideoTool(){ openComing("📹 Video Frame Export"); }
-function openPassword(){ openComing("🔐 Password Generator"); }
-function openGrad(){ openComing("🌈 Gradient Maker"); }
-function openCountdown(){ openComing("⏳ Countdown Timer"); }
-function openGame(){ openComing("🎮 Mini Game"); }
-function openUploader(){ openComing("📤 File Uploader"); }
-function openScreenshot(){ openComing("📷 Screenshot Tool"); }
-function openInvoice(){ openComing("🧾 Invoice Generator"); }
-function openUnit(){ openComing("📏 Unit Converter"); }
-function openQR(){ openComing("🔳 QR Code Generator"); }
-function openTTS(){ openComing("🗣 Text-to-Speech"); }
-function openChat(){ openComing("💬 Chat Simulator"); }
-function openLogo(){ openComing("🎨 Logo Maker"); }
+/
 
 /* ---------- Smooth Animations ---------- */
 document.querySelectorAll('.btn,.tool').forEach(el=>{
