@@ -1,120 +1,124 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>nextycod — Login & Tools</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-  <style>
-    :root{--bg:#0f172a;--card:#0b1220;--accent:#7c3aed;--glass:rgba(255,255,255,0.04);--success:#10b981}
-    body{font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#071025 0%, #071933 60%);color:#e6eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-    .wrap{width:100%;max-width:980px;display:grid;grid-template-columns:420px 1fr;gap:28px}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CyberX — Nexty (SIM & AI Tools)</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* layout + theme */
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',sans-serif;background:radial-gradient(circle at center,#2b0047,#000010);color:#fff;text-align:center;overflow-x:hidden}
+canvas#particles{position:fixed;inset:0;z-index:0;display:block}
 
-    /* Card */
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:26px;box-shadow:0 8px 30px rgba(2,6,23,0.6);backdrop-filter: blur(6px)}
+/* main container */
+.container{max-width:1000px;margin:0 auto;padding:24px 16px;position:relative;z-index:2}
+h1{font-family:'Orbitron',sans-serif;font-size:2.4rem;margin-top:8px;text-shadow:0 0 18px #7b2ff7}
+p.lead{margin-top:8px;color:#dcd6ff;font-size:1rem}
 
-    /* Login */
-    .brand{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-    .logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#5b21b6);display:flex;align-items:center;justify-content:center;font-weight:700}
-    h1{font-size:20px;margin:0}
-    .sub{color:rgba(230,238,248,0.7);font-size:13px}
-    form{margin-top:16px;display:grid;gap:12px}
-    input[type="text"],input[type="password"]{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;outline:none;transition:transform .18s, box-shadow .18s}
-    input:focus{box-shadow:0 6px 18px rgba(124,58,237,0.12);transform:translateY(-2px)}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#4c1d95);border:none;color:white;font-weight:600;cursor:pointer}
-    .muted{font-size:13px;color:rgba(230,238,248,0.6)}
-    .hint{font-size:13px;color:rgba(230,238,248,0.6)}
+/* top controls */
+.top-buttons{margin-top:30px;display:flex;justify-content:center;gap:14px;align-items:center;flex-wrap:wrap}
+.btn{background:linear-gradient(45deg,#7b2ff7,#00f0ff);border:none;color:#fff;padding:12px 18px;border-radius:26px;cursor:pointer;font-weight:600;font-size:.98rem;box-shadow:0 0 14px #7b2ff7;transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-6px);box-shadow:0 0 30px #00f0ff}
 
-    /* tools area */
-    .tools{display:flex;flex-direction:column;gap:12px}
-    .tool-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .tool{padding:12px;border-radius:10px;background:var(--glass);border:1px solid rgba(255,255,255,0.02)}
-    .tool h3{margin:0 0 8px 0;font-size:15px}
-    .tool p{margin:0;font-size:13px;color:rgba(230,238,248,0.75)}
+/* extra and small buttons */
+.extra-buttons{display:none;flex-direction:column;gap:12px;align-items:center;margin-top:22px}
+.extra-buttons.show{display:flex}
+.small-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.small-btn{background:linear-gradient(45deg,#7b2ff7,#00f0ff);padding:10px 14px;border-radius:22px;font-weight:600;cursor:pointer;box-shadow:0 0 12px #7b2ff7}
 
-    /* image output */
-    .preview{display:flex;flex-direction:column;gap:10px}
-    .preview img{max-width:100%;border-radius:8px;box-shadow:0 8px 40px rgba(2,6,23,0.6)}
+/* tools box */
+#toolsBox{display:none;margin:18px auto 6px;max-width:920px;padding:18px;border-radius:14px;background:rgba(255,255,255,0.04);box-shadow:0 0 24px rgba(123,47,247,0.25)}
+#toolsBox.show{display:block}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.tool{background:linear-gradient(135deg,#7b2ff7,#00f0ff);padding:14px;border-radius:12px;color:#fff;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;min-height:48px;box-shadow:0 0 10px #00f0ff}
+.tool.small{min-height:44px;font-size:.95rem}
 
-    /* small responsive */
-    @media (max-width:900px){.wrap{grid-template-columns:1fr} }
-  </style>
+/* visitor box */
+.visitor-box{position:fixed;top:14px;right:14px;z-index:999;background:rgba(0,0,0,0.55);padding:8px 12px;border-radius:10px;box-shadow:0 0 12px #7b2ff7;font-family:'Orbitron',sans-serif;color:#00f0ff}
+
+/* sim tool */
+.sim-tool-wrap{background:#161322;padding:16px;border-radius:12px}
+.lookup-card{background:#fff;border-radius:12px;padding:14px;color:#222;max-width:720px;margin:0 auto;box-shadow:0 12px 30px rgba(0,0,0,0.5)}
+.search-type{display:flex;gap:12px;justify-content:center;margin-bottom:12px}
+.search-option{display:flex;align-items:center;gap:8px;color:#222}
+.input-group{display:flex;gap:0;margin-bottom:10px}
+input[type="text"]{flex:1;padding:12px;border:2px solid #e7e7e7;border-radius:8px 0 0 8px;font-size:1rem}
+button.lookup{background:linear-gradient(90deg,#1a2a6c,#b21f1f);color:#fff;border:none;padding:0 18px;border-radius:0 8px 8px 0;cursor:pointer}
+.examples{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.example-btn{background:#f1f3f5;border-radius:18px;padding:8px 12px;border:none;color:#222;cursor:pointer}
+.no-data{padding:18px;color:#666}
+
+/* results */
+.result-card{background:#0f0f10;color:#fff;border-radius:10px;padding:12px;margin-top:12px;text-align:left}
+.result-row{display:flex;gap:12px;align-items:center;justify-content:space-between}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin-top:8px}
+.info-card{background:#fff;color:#222;border-radius:8px;padding:10px;box-shadow:0 6px 18px rgba(0,0,0,0.2)}
+.info-label{font-size:0.8rem;color:#666}
+.info-value{font-weight:700;font-size:1rem}
+
+/* loader overlay for searches (fade) */
+#loaderOverlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);z-index:9997}
+.loader-pill{background:linear-gradient(90deg,#7b2ff7,#00f0ff);padding:12px 18px;border-radius:20px;box-shadow:0 6px 30px rgba(123,47,247,0.4)}
+.loader-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin:0 6px;background:#fff;opacity:.2;animation:dot 1.2s infinite}
+@keyframes dot{0%{opacity:.2;transform:translateY(0)}50%{opacity:1;transform:translateY(-6px)}100%{opacity:.2;transform:translateY(0)}}
+
+/* AI image generator box */
+#aiToolBox{display:none;margin-top:14px}
+#aiResults{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.ai-credit{font-weight:700;color:#0ff;font-size:1rem;animation:flashCredit 1.2s infinite alternate}
+@keyframes flashCredit{0%{color:#0ff}50%{color:#7b2ff7}100%{color:#0ff}}
+.ai-img-card{background:#0f0f10;padding:12px;border-radius:10px;box-shadow:0 12px 28px rgba(0,0,0,0.5);text-align:center;position:relative}
+.ai-img-card img{max-width:100%;border-radius:8px;margin-bottom:8px}
+.download-btn{margin-top:6px;padding:8px 12px;background:#7b2ff7;color:#fff;border:none;border-radius:8px;cursor:pointer;transition:transform .25s}
+.download-btn:hover{transform:scale(1.05)}
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <!-- Login Card -->
-    <div class="card">
-      <div class="brand">
-        <div class="logo">NX</div>
-        <div>
-          <h1>nextycod — Login</h1>
-          <div class="sub">Enter your credentials to access the tools box</div>
-        </div>
-      </div>
 
-      <form id="loginForm" autocomplete="off">
-        <label class="hint">Username</label>
-        <input id="username" type="text" placeholder="username" required />
-        <label class="hint">Password</label>
-        <input id="password" type="password" placeholder="password" required />
+<canvas id="particles"></canvas>
+<div class="visitor-box">👁 Visitors: <span id="visitorCount">--</span></div>
 
-        <div style="display:flex;align-items:center;gap:10px;margin-top:6px">
-          <button class="btn" type="submit">Sign in</button>
-          <div class="muted">Demo credentials: <strong>nexty</strong> / <strong>ofcnexty</strong></div>
-        </div>
+<main class="container">
+  <h1>💻 CyberX ⚡</h1>
+  <p class="lead">Nexty — Where Innovation Meets Imagination.</p>
 
-        <div id="loginMsg" style="margin-top:10px;color:#fca5a5;display:none"></div>
-      </form>
+  <div class="top-buttons">
+    <button class="btn" id="contactBtn">📩 Contact</button>
+    <button class="btn" id="startBtn">🚀 Start Experience</button>
+  </div>
 
-      <hr style="margin:18px 0;border:none;border-top:1px solid rgba(255,255,255,0.02)" />
-      <div class="muted">Light demo: after login you can call the FAM OFC AI image API and a mock SIM lookup API.</div>
-    </div>
-
-    <!-- Tools Card -->
-    <div class="card" id="toolsCard" style="display:none">
-      <div class="tools">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <h2 style="margin:0">Tools Box</h2>
-          <div class="muted">Welcome, <span id="who">user</span></div>
-        </div>
-
-        <div class="tool-list">
-          <div class="tool">
-            <h3>FAM OFC AI Image Generator</h3>
-            <p>Free API: <code>https://famofc.site/api/generate.php?prompt=...&aspectRatio=landscape</code></p>
-            <p>Supports: <strong>prompt</strong> (required) and <strong>aspectRatio</strong> (portrait|square|landscape).</p>
-            <div style="margin-top:8px;display:flex;gap:8px">
-              <input id="aiPrompt" type="text" placeholder="e.g. a neon city at night" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit" />
-              <select id="aiAspect" style="padding:8px;border-radius:8px;background:transparent;color:inherit;border:1px solid rgba(255,255,255,0.04)">
-                <option value="landscape">landscape</option>
-                <option value="square">square</option>
-                <option value="portrait">portrait</option>
-              </select>
-              <button id="genBtn" class="btn">Generate</button>
-            </div>
-            <div id="aiStatus" style="margin-top:8px;font-size:13px;color:rgba(230,238,248,0.7)"></div>
-            <div class="preview" id="aiPreview" style="margin-top:10px"></div>
-          </div>
-
-          <div class="tool">
-            <h3>SIM Lookup (mock)</h3>
-            <p>Demo endpoint: <code>/api/simlookup.js</code> (server-side). Enter a phone to test.</p>
-            <div style="margin-top:8px;display:flex;gap:8px">
-              <input id="simInput" type="text" placeholder="e.g. +923001234567" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit" />
-              <button id="simBtn" class="btn">Lookup</button>
-            </div>
-            <pre id="simResult" style="margin-top:8px;white-space:pre-wrap;font-size:13px;color:rgba(230,238,248,0.85)"></pre>
-          </div>
-
-        </div>
-
-        <div style="margin-top:10px">  
-          <small class="muted">Tip: This is a local demo UI — replace `/api/simlookup.js` with your real server route. The AI API requires no key and returns JSON with `images[].image_url`.</small>
-        </div>
-      </div>
+  <div class="extra-buttons" id="extraButtons">
+    <div class="small-row">
+      <button id="toolsBtn" class="small-btn">🧰 Tools</button>
+      <button id="coming1" class="small-btn">🔜 Coming Soon 1</button>
+      <button id="coming2" class="small-btn">🔜 Coming Soon 2</button>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <div id="toolsBox">
+    <div class="tool-grid">
+      <div id="simToolTile" class="tool">📱 SIM Database Lookup</div>
+      <div id="aiToolTile" class="tool">🎨 AI Image Generator</div>
+    </div>
+
+    <div id="simToolBox" style="margin-top:14px;display:none"></div>
+    <div id="aiToolBox"></div>
+  </div>
+
+  <div style="height:36px"></div>
+  <div style="color:#dcd6ff;font-size:.95rem">✨ CyberX — Nexty ⚡</div>
+</main>
+
+<!-- audio -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="music/anna_ansak.mp3" type="audio/mpeg">
+</audio>
+
+<!-- loader overlay -->
+<div id="loaderOverlay"><div class="loader-pill">Processing <span class="loader-dot" style="animation-delay:0s"></span><span class="loader-dot" style="animation-delay:.2s"></span><span class="loader-dot" style="animation-delay:.4s"></span></div></div>
+
+<script src="script.js"></script>
 </body>
 </html>
